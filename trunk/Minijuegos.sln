@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+
+# Visual Studio 2008
+
+Project("{505549DB-82F7-021D-7FD7-8DE7F4A98BB0}") = "Minijuegos", "Minijuegos.csproj", "{0BED0BA8-CD86-842D-E931-5AC6914B426E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BED0BA8-CD86-842D-E931-5AC6914B426E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BED0BA8-CD86-842D-E931-5AC6914B426E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BED0BA8-CD86-842D-E931-5AC6914B426E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BED0BA8-CD86-842D-E931-5AC6914B426E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

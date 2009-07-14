@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0BED0BA8-CD86-842D-E931-5AC6914B426E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Irrelevant</RootNamespace>
+    <AssemblyName>Irrelvant</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Archivos de programa\Unity\Editor\Data\lib\UnityEngine-Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Archivos de programa\Unity\Editor\Data\lib\UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Editor\SyncVisualStudioSolution.cs" />
+     <Compile Include="Assets\MiniGamesGUI\Scripts\MiniGamesGUI.cs" />
+     <Compile Include="Assets\Problem2Task1\._Problem2Task1Logic.cs" />
+     <Compile Include="Assets\Problem2Task1\Problem2Task1Logic.cs" />
+     <Compile Include="Assets\Problem2Task1\Prefabs\._ScriptCube.cs" />
+     <Compile Include="Assets\Problem2Task1\Prefabs\ScriptCube.cs" />
+     <Compile Include="Assets\Problem3Task1\._Problem3Task1Logic.cs" />
+     <Compile Include="Assets\Problem3Task1\Problem3Task1Logic.cs" />
+     <Compile Include="Assets\Problem4Task1\Problem4Task1Logic.cs" />
+     <Compile Include="Assets\Standard Assets\Camera Scripts\MouseLook.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\ActivateTrigger.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\CombineChildren.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\MeshCombineUtility.cs" />
+     <Compile Include="Assets\Standard Assets\Water\Sources\._WaterSimple.cs" />
+     <Compile Include="Assets\Standard Assets\Water\Sources\WaterSimple.cs" />
+     <None Include="Assets\Standard Assets\Blob-Shadow\ShadowProjection.shader" />
+     <None Include="Assets\Standard Assets\Water\Sources\._FX-Water Simple.shader" />
+     <None Include="Assets\Standard Assets\Water\Sources\FX-Water Simple.shader" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
+    
