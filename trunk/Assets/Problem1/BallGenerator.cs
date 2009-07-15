@@ -8,11 +8,14 @@ public class BallGenerator : MonoBehaviour
     public string[] colorNames = { "Rojo", "Verde", "Azul" };
     public int[] colorsValue = { 3, 5, 7 };	
 	int levelScore = 0;
-    public float minutesToPlay = 0.5f; // Previous value: 3 (Changed by Nacho).
+    public float minutesToPlay = 3;
     private GameObject[] balls;
     [HideInInspector] public int totalSum = 0;
     private string stringToEdit = "";
     float totalTime = 0.001f;
+	
+	PointsManagerBehaviour pmb = null;
+	MiniGamesGUI mg = null;
     
     void Start()
     {
@@ -40,26 +43,21 @@ public class BallGenerator : MonoBehaviour
             totalSum += colorsValue[randomPosition];
             balls[i] = g;
         }
-		
-		GameObject go = GameObject.Find("PointsManagerBehaviour");
+
 		long totalPoints = 0;
+		GameObject go = GameObject.Find("PointsManagerBehaviour");
 		if (go != null)
 		{
-			PointsManagerBehaviour pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
-			if (pmb != null )
-				totalPoints = pmb.getPoints();
-		}
+			pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+			totalPoints = pmb.getPoints();
+		} // End if.
 		
-		go = GameObject.Find("MiniGamesGUI");
-		if(go != null)
+		GameObject mggo = GameObject.Find("MiniGamesGUI");
+		if (mggo != null)
 		{
-			MiniGamesGUI mgGUI = ((MiniGamesGUI)go.GetComponent("MiniGamesGUI"));
-			if(mgGUI != null)
-			{
-				mgGUI.levelScore = 10.0f;
-				mgGUI.totalScore = totalPoints;
-			}
-		}
+			mg = ((MiniGamesGUI)mggo.GetComponent("MiniGamesGUI"));
+			mg.totalScore = totalPoints;
+		} // End if.
     }
 
     void Reset()
@@ -104,23 +102,25 @@ public class BallGenerator : MonoBehaviour
             val = 0;
         }
 
+
         if (val  == totalSum)
         {
             Debug.Log("Win!");
 			int partialPoints = (int) (150 / totalTime);
             Debug.Log(partialPoints);
 			
-            GameObject mggo = GameObject.Find("MiniGamesGUI");
-            if (mggo != null)
-            {
-                MiniGamesGUI mg = ((MiniGamesGUI)mggo.GetComponent("MiniGamesGUI"));
-                mg.PartialWin();
-				levelScore = (int)(mg.levelScore += partialPoints);
+			if(mg != null)
+			{
+				mg.PartialWin();
+				levelScore = (int)(mg.levelScore += (float)partialPoints);
 				mg.totalScore += partialPoints;
-				Debug.Log(mg.levelScore + " " + mg.totalScore);
-            }
-
-            
+			} // End if.
+			
+			if(pmb != null)
+			{
+				pmb.incrementPoints(partialPoints);
+			} // End if.
+			
             Reset();
         }
     
@@ -133,15 +133,10 @@ public class BallGenerator : MonoBehaviour
 
         if (totalTime >= minutesToPlay * 60)
         {
-            GameObject go = GameObject.Find("PointsManagerBehaviour");
-            if (go != null)
-            {
-                PointsManagerBehaviour pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
-                if (pmb != null) {
-                    pmb.incrementLevelsCompleted(1);
-					pmb.incrementPoints(levelScore);
-				}
-            }		
+			if (pmb != null)
+			{
+				pmb.incrementLevelsCompleted(1);
+			} // End if.
             // Change level
 			Application.LoadLevel("RunScreen");
         }
