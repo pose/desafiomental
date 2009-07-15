@@ -20,6 +20,9 @@ public class Problem2Task1Logic : MonoBehaviour
     int signColorIndex;
     float signColorR, signColorG, signColorB;
     string signText;
+	
+	PointsManagerBehaviour pmb = null;
+	MiniGamesGUI mg = null;
 
     // Use this for initialization
     void Start()
@@ -38,6 +41,38 @@ public class Problem2Task1Logic : MonoBehaviour
         currentLevel = 0;
         replaceScreenObjs = true;
         totalTimeCounter = 0;
+				
+		long totalPoints = 0;
+		GameObject go = GameObject.Find("PointsManagerBehaviour");
+		if (go != null)
+		{
+			pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+			print("FOUND");
+			if(pmb != null)
+			{
+				print("FOUND2");
+				totalPoints = pmb.getPoints();
+				print("Total points: " + totalPoints);
+			} // End if.
+		} // End if.
+		else
+		{
+			print("PointsManagerBehaviour not found!");
+		} // End else.
+		
+		GameObject mggo = GameObject.Find("MiniGamesGUI");
+		if (mggo != null)
+		{
+			mg = ((MiniGamesGUI)mggo.GetComponent("MiniGamesGUI"));
+			if(mg != null)
+			{
+				mg.totalScore = totalPoints;
+			} // End if.
+		} // End if.
+		else
+		{
+			print("MiniGamesGUI not found!");
+		} // End else.
     }
 
     void OnGUI()
@@ -107,9 +142,19 @@ public class Problem2Task1Logic : MonoBehaviour
                     }
 //                    print("Response time: " + timeElapsed + " msecs.");
                     replaceScreenObjs = true;
-					// PUNTAJE
-                    GameObject go = GameObject.Find("GameManager");
-                    ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour")).incrementPoints(5L);
+					
+					// Add the score.
+					if(mg != null)
+					{
+						mg.PartialWin();
+						mg.levelScore += 5.0f;
+						mg.totalScore += 5.0f;
+					} // End if.
+					
+					if(pmb != null)
+					{
+						pmb.incrementPoints(5);
+					} // End if.
                 }
             }
         }
