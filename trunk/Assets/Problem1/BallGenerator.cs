@@ -60,7 +60,7 @@ public class BallGenerator : MonoBehaviour
 		} // End if.
     }
 
-    void Reset()
+    void Reset2()
     {
         for (int i = 0; i < balls.Length; i++)
             Destroy(balls[i]);
@@ -121,7 +121,7 @@ public class BallGenerator : MonoBehaviour
 				pmb.incrementPoints(partialPoints);
 			} // End if.
 			
-            Reset();
+            Reset2();
         }
     
     }
