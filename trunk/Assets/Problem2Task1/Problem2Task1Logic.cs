@@ -43,7 +43,7 @@ public class Problem2Task1Logic : MonoBehaviour
         totalTimeCounter = 0;
 				
 		long totalPoints = 0;
-		GameObject go = GameObject.Find("PointsManagerBehaviour");
+		GameObject go = GameObject.Find("GameManager");
 		if (go != null)
 		{
 			pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
