@@ -8,11 +8,12 @@ public class BallGenerator : MonoBehaviour
     public string[] colorNames = { "Rojo", "Verde", "Azul" };
     public int[] colorsValue = { 3, 5, 7 };	
 	int levelScore = 0;
-    public float minutesToPlay = 3;
+    public const float minutesToPlay = 1;
     private GameObject[] balls;
     [HideInInspector] public int totalSum = 0;
     private string stringToEdit = "";
     float totalTime = 0.001f;
+	float timeRemaining = minutesToPlay * 60;
 	
 	PointsManagerBehaviour pmb = null;
 	MiniGamesGUI mg = null;
@@ -45,7 +46,7 @@ public class BallGenerator : MonoBehaviour
         }
 
 		long totalPoints = 0;
-		GameObject go = GameObject.Find("PointsManagerBehaviour");
+		GameObject go = GameObject.Find("GameManager");
 		if (go != null)
 		{
 			pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
@@ -113,11 +114,12 @@ public class BallGenerator : MonoBehaviour
 			{
 				mg.PartialWin();
 				levelScore = (int)(mg.levelScore += (float)partialPoints);
-				mg.totalScore += partialPoints;
+				mg.totalScore += (float)partialPoints;
 			} // End if.
 			
 			if(pmb != null)
 			{
+				print("PGM INCREMENTED");
 				pmb.incrementPoints(partialPoints);
 			} // End if.
 			
@@ -129,6 +131,9 @@ public class BallGenerator : MonoBehaviour
 
     void Update()
     {
+		timeRemaining -= Time.deltaTime;
+		mg.updateCronometer(timeRemaining);
+		
         totalTime += Time.deltaTime;
 
         if (totalTime >= minutesToPlay * 60)
