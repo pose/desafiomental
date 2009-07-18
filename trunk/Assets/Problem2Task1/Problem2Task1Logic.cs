@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Problem2Task1Logic : MonoBehaviour
 {
+	const float TOTAL_TIME = 60.0f;	
 
     public GameObject[] cubePrefab;
     public int numberOfCubes;
@@ -16,6 +17,7 @@ public class Problem2Task1Logic : MonoBehaviour
     float timeCounter;
     float timeElapsed;
     float totalTimeCounter;
+	float timeRemaining = TOTAL_TIME;
 
     int signColorIndex;
     float signColorR, signColorG, signColorB;
@@ -92,8 +94,11 @@ public class Problem2Task1Logic : MonoBehaviour
             assignDisplayedCubes();
         }
 
+		timeRemaining -= Time.deltaTime;
+		mg.updateCronometer(timeRemaining);
+		
         totalTimeCounter += Time.deltaTime;
-        if (totalTimeCounter > 60)
+        if (totalTimeCounter > TOTAL_TIME)
         {
 //            print("Time's up!");
 			// CARGA DE LA ESCENA
@@ -156,6 +161,10 @@ public class Problem2Task1Logic : MonoBehaviour
 						pmb.incrementPoints(5);
 					} // End if.
                 }
+				else
+				{
+					mg.PartialLose();
+				} // End else.
             }
         }
     }

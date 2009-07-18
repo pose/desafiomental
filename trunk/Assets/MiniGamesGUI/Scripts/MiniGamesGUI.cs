@@ -7,6 +7,7 @@ public class MiniGamesGUI : MonoBehaviour
     public GUIStyle totalScoreLabelStyle;
     public GUIStyle partialScoreLabelStyle;
     public GUIStyle stairStyle;
+	public GUIStyle chronometerStyle;
     public string mainMenu = "MainMenu";
     public float levelScore = 0.0f;
     public float totalScore = 0.0f;
@@ -17,66 +18,97 @@ public class MiniGamesGUI : MonoBehaviour
     public int level;
 
     private float noticeTime = 0f;
+	private float noticeCyclesCounter = 0;
     private string notice = "";
+	private string backupNotice = "";
     public GUIStyle noticeStyle;
-
+	public AudioSource partialWinAudio;
+	public AudioSource partialLoseAudio;
+	
+	private int minutes;
+	private int seconds;
+	private int msecs;
     
     void Update()
     {
         noticeTime -= Time.deltaTime;
 
         if (noticeTime < 0)
+		{
             notice = "";
+		}
+		else
+		{
+			noticeCyclesCounter++;
+			if(noticeCyclesCounter < 3)
+			{				
+				notice = "";
+			}
+			else if(noticeCyclesCounter < 6)
+			{				
+				notice = backupNotice;
+			}
+			else
+			{
+				noticeCyclesCounter = 0;
+			}
+		}
     }
 
     public void PartialWin()
     {
-        notice = "Correct!";
-        noticeTime = 1.5f;
+        backupNotice = notice = "CORRECT!";
+        noticeTime = 1.0f;
+		noticeStyle.normal.textColor = new Color(0.0f,0.75f,0.0f, 1.0f);
+		partialWinAudio.Play();
     }
 
     public void PartialLose()
     {
-        notice = "Wrong :(";
-        noticeTime = 1.5f;
+        backupNotice = notice = "WRONG!";
+        noticeTime = 1.0f;
+		noticeStyle.normal.textColor = new Color(0.75f,0.0f,0.0f, 1.0f);
+		partialLoseAudio.Play();
     }
 
     public void Win()
     {
-        notice = "You Win!";
+        backupNotice = notice = "You Win!";
         noticeTime = 3f;
     }
 
     public void Lose()
     {
-        notice = "Game over, try again!";
+        backupNotice = notice = "Game over, try again!";
         noticeTime = 3f;
     }
 
     public void Notice(string msg, float duration)
     {
-        this.notice = msg;
+        backupNotice= this.notice = msg;
         this.noticeTime = duration;
     }
+	
+	public void updateCronometer(float time)
+	{
+		minutes = ((int)time) / 60;
+		seconds = ((int)time) % 60;
+		msecs = (int)((time - ((int)time)) * 100);
+	}
 
     private int WhichYear(int problem, int task)
     {
         int[] problemLevels = { 0, 1, 1, 2, 0, 2, 3, 4 };
-
         return problemLevels[problem - 1];
     }
 
     void OnGUI()
     {
-
-
         //GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height), frameStyle);
         GUILayout.BeginArea(new Rect(0, 0, 750, 500), frameStyle);
 
         /*TOP*/
         GUILayout.BeginHorizontal();
-
-
 
         if (Application.loadedLevelName.StartsWith("Problem"))
         {
@@ -101,7 +133,10 @@ public class MiniGamesGUI : MonoBehaviour
         
        //GUILayout.BeginHorizontal();
         
-        GUILayout.Label(new GUIContent(notice), noticeStyle);
+		// Print the notices.
+        //GUILayout.Label(new GUIContent(notice), noticeStyle); // Old code.		
+        GUI.Label(new Rect(300,60,500,60),notice, noticeStyle);
+		
 
         GUILayout.FlexibleSpace();
         //GUILayout.EndHorizontal();
@@ -115,10 +150,12 @@ public class MiniGamesGUI : MonoBehaviour
             Application.LoadLevel(mainMenu);
         }
 
-        GUILayout.Label( totalScore.ToString(), totalScoreLabelStyle);
-
-
-        GUILayout.Label(levelScore.ToString(), partialScoreLabelStyle);
+		GUILayout.Label( totalScore.ToString(),totalScoreLabelStyle);
+        GUILayout.Label(levelScore.ToString(),partialScoreLabelStyle);
+		
+		// Print the chronometer.
+		chronometerStyle.normal.textColor = new Color(0.75f,0.0f,0.0f, 1.0f);
+        GUI.Label(new Rect(25, 110, 500, 60), minutes+":"+seconds+":"+msecs, chronometerStyle);
 
         GUILayout.Box(stairway[WhichYear(year, level) % stairway.Length], stairStyle);
         
