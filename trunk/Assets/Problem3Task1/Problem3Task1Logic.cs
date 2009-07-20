@@ -15,57 +15,73 @@ public class Problem3Task1Logic : MonoBehaviour {
 	bool gameOver;
 	
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		gameObjs = new GameObject[3];
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<3;i++)
+		{
 			gameObjs[i] = Object.Instantiate(prefabs[i]) as GameObject;			
 		}
 		InitializeLevel();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(!lightIsOn) {
+	void Update ()
+	{
+		if(!lightIsOn)
+		{
 			timeCounter += Time.deltaTime;
-			if(timeCounter >= timeTarget) {
+			if(timeCounter >= timeTarget)
+			{
 				lightIsOn = true;
 				gameObjs[0].active = false;
 				gameObjs[1].active = true;
 				timeCounter = 0;
 			}
-		}else if(!gameOver) {
+		}
+		else if(!gameOver)
+			{
 			timeCounter += Time.deltaTime;
 			
 			RaycastHit [] hits;
-			if(Input.GetMouseButton(0)) {
+			if(Input.GetMouseButton(0))
+			{
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				hits = Physics.RaycastAll(ray);
 				int index = 0;
 				float dist = 0;
-				if (hits.Length>0) {
+				if (hits.Length>0)
+				{
 					dist = hits[0].distance;
-					for (int i=1; i<hits.Length; i++) {
-						if (dist>hits[i].distance) {
+					for (int i=1; i<hits.Length; i++)
+					{
+						if (dist>hits[i].distance)
+						{
 							dist = hits[i].distance;
 							index = i;
 						}
 					}
 				}
-				if(gameObjs[2]==hits[index].transform.gameObject) {
+				if(gameObjs[2]==hits[index].transform.gameObject)
+				{
 					print("Response time: " + (timeCounter*1000) + " msecs.");
 					gameOver = true;
 					timeCounter = 0;
 				}
 			}
-		}else {
+		}
+		else
+		{
 			timeCounter += Time.deltaTime;
-			if(timeCounter > 2) {
+			if(timeCounter > 2)
+			{
 				InitializeLevel();				
 			}
 		}
 	}
 	
-	void InitializeLevel() {
+	void InitializeLevel()
+	{
 		gameObjs[0].transform.position = new Vector3(0,3,0);
 		gameObjs[0].active = true;
 		gameObjs[1].transform.position = new Vector3(0,3,0);
