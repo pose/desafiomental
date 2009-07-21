@@ -4,18 +4,31 @@ using System.Collections.Generic;
 
 public class PointsManagerBehaviour : MonoBehaviour {
 
-	long points;
+	long points = 0;
     int levelsCompleted = 0;
     Dictionary<string, long> gamePoints = null;
+    int currentGame = 0;
 
 	// Use this for initialization
+
 	void Start () {
 		DontDestroyOnLoad(this);
         gamePoints = new Dictionary<string, long>();
 		points = 0;
 	}
 	
-	public long setPoints(long p) {		
+    public void setCurrentGame( int gNumber ){
+
+        this.currentGame = gNumber;
+    }
+
+    public int getCurrentGame()
+    {
+
+        return this.currentGame;
+    }
+
+    public long setPoints(long p) {		
 		this.points = p;
 		GameObject go = GameObject.Find("MiniGamesGUI");
 		if (go != null)

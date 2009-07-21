@@ -5,7 +5,7 @@ public class FadeOutAndLoadBehaviour : MonoBehaviour {
 	
 	public string sceneToLoad;
 	public string[] textureNames;
-    Faders fader = null;
+    private Faders fader = null;
 	private bool goingDown = false;
 	private int i, qty=0;
 

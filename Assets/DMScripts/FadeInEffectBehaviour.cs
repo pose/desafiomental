@@ -5,7 +5,7 @@ public class FadeInEffectBehaviour : MonoBehaviour {
 	public string[] texturesNames;
 	private bool doneFading = false;
 	private int qtyFades = 0, i;
-    Faders fader = null;
+    private Faders fader = null;
 	
 	// Use this for initialization
 	
@@ -13,6 +13,7 @@ public class FadeInEffectBehaviour : MonoBehaviour {
 		
 		doneFading = false;
         fader = new Faders();
+
 		for( i = 0 ; i < texturesNames.Length ; i++ ){
 			fader.setBackColor( new Color(0.0f,0.0f,0.0f,0.5f), texturesNames[i] );
 		}
