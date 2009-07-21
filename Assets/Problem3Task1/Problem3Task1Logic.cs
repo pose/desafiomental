@@ -82,9 +82,9 @@ public class Problem3Task1Logic : MonoBehaviour {
 	
 	void InitializeLevel()
 	{
-		gameObjs[0].transform.position = new Vector3(0,3,0);
+		gameObjs[0].transform.position = new Vector3(0.55f,0.9f,0);
 		gameObjs[0].active = true;
-		gameObjs[1].transform.position = new Vector3(0,3,0);
+		gameObjs[1].transform.position = new Vector3(0.55f,0.9f,0);
 		gameObjs[1].active = false;
 		gameObjs[2].transform.position = new Vector3(0,-3,0);		
 		currentLevel++;
