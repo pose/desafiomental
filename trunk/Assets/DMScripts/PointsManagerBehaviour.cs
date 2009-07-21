@@ -1,14 +1,17 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PointsManagerBehaviour : MonoBehaviour {
 
 	long points;
     int levelsCompleted = 0;
+    Dictionary<string, long> gamePoints = null;
 
 	// Use this for initialization
 	void Start () {
-		DontDestroyOnLoad(this); 
+		DontDestroyOnLoad(this);
+        gamePoints = new Dictionary<string, long>();
 		points = 0;
 	}
 	
@@ -23,10 +26,38 @@ public class PointsManagerBehaviour : MonoBehaviour {
 		}		
 		return getPoints();
 	}
-	
+
+    public long setPoints(string game, long points)
+    {
+        this.points = points;
+        GameObject go = GameObject.Find("MiniGamesGUI");
+        try
+        {
+            gamePoints.Add(game, points);
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log("No se encontró el juego correspondiente a " + game);
+        }
+        
+        if (go != null)
+        {
+            MiniGamesGUI mgGUI = ((MiniGamesGUI)go.GetComponent("MiniGamesGUI"));
+            if (mgGUI != null)
+                mgGUI.totalScore += points;
+        }
+
+        return getPoints(game);
+    }
+
 	public long getPoints() {
 		return this.points;
 	}
+
+    public long getPoints(string game)
+    {
+        return this.gamePoints[game];
+    }
 	
 	public long incrementPoints(long inc) {
 		setPoints(getPoints() + inc);
@@ -36,6 +67,17 @@ public class PointsManagerBehaviour : MonoBehaviour {
 	public long decrementPoints(long dec) {
 		return incrementPoints( -dec );
 	}
+
+    public long incrementPoints(string game, long inc)
+    {
+        setPoints(game, getPoints() + inc);
+        return getPoints(game);
+    }
+
+    public long decrementPoints(string game, long dec)
+    {
+        return incrementPoints(game, -dec);
+    }
 
     public int setLevelsCompleted(int p) {
 
