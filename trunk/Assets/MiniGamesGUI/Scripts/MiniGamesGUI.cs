@@ -155,7 +155,8 @@ public class MiniGamesGUI : MonoBehaviour
 		
 		// Print the chronometer.
 		chronometerStyle.normal.textColor = new Color(0.75f,0.0f,0.0f, 1.0f);
-        GUI.Label(new Rect(25, 110, 500, 60), minutes+":"+seconds+":"+msecs, chronometerStyle);
+        GUI.Label(new Rect(25, 110, 500, 60), string.Format("{0:00}:{1:00}:{2:00}",minutes,seconds,msecs), chronometerStyle); // Format the string
+			// using the oh-so-intuitive C# way.
 
         GUILayout.Box(stairway[WhichYear(year, level) % stairway.Length], stairStyle);
         

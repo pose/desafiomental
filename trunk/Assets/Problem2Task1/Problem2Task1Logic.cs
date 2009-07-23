@@ -49,10 +49,8 @@ public class Problem2Task1Logic : MonoBehaviour
 		if (go != null)
 		{
 			pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
-			print("FOUND");
 			if(pmb != null)
 			{
-				print("FOUND2");
 				totalPoints = pmb.getPoints();
 				print("Total points: " + totalPoints);
 			} // End if.

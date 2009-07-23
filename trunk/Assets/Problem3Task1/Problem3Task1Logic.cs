@@ -14,6 +14,9 @@ public class Problem3Task1Logic : MonoBehaviour {
 	bool lightIsOn;
 	bool gameOver;
 	
+	PointsManagerBehaviour pmb = null;
+	MiniGamesGUI mg = null;
+	
 	// Use this for initialization
 	void Start ()
 	{
@@ -23,6 +26,36 @@ public class Problem3Task1Logic : MonoBehaviour {
 			gameObjs[i] = Object.Instantiate(prefabs[i]) as GameObject;			
 		}
 		InitializeLevel();
+		
+		long totalPoints = 0;
+		GameObject go = GameObject.Find("GameManager");
+		if (go != null)
+		{
+			pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+			if(pmb != null)
+			{
+				totalPoints = pmb.getPoints();
+				print("Total points: " + totalPoints);
+			} // End if.
+		} // End if.
+		else
+		{
+			print("PointsManagerBehaviour not found!");
+		} // End else.
+		
+		GameObject mggo = GameObject.Find("MiniGamesGUI");
+		if (mggo != null)
+		{
+			mg = ((MiniGamesGUI)mggo.GetComponent("MiniGamesGUI"));
+			if(mg != null)
+			{
+				mg.totalScore = totalPoints;
+			} // End if.
+		} // End if.
+		else
+		{
+			print("MiniGamesGUI not found!");
+		} // End else.
 	}
 	
 	// Update is called once per frame
@@ -40,8 +73,9 @@ public class Problem3Task1Logic : MonoBehaviour {
 			}
 		}
 		else if(!gameOver)
-			{
-			timeCounter += Time.deltaTime;
+		{
+			timeCounter += Time.deltaTime;			
+			mg.updateCronometer(timeCounter);
 			
 			RaycastHit [] hits;
 			if(Input.GetMouseButton(0))
@@ -49,7 +83,7 @@ public class Problem3Task1Logic : MonoBehaviour {
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				hits = Physics.RaycastAll(ray);
 				int index = 0;
-				float dist = 0;
+				float dist = 0;				
 				if (hits.Length>0)
 				{
 					dist = hits[0].distance;
@@ -60,14 +94,15 @@ public class Problem3Task1Logic : MonoBehaviour {
 							dist = hits[i].distance;
 							index = i;
 						}
+					}					
+					if(gameObjs[2]==hits[index].transform.gameObject)
+					{
+						print("Response time: " + (timeCounter*1000) + " msecs.");
+						gameOver = true;
+						timeCounter = 0;
+						mg.updateCronometer(timeCounter);
 					}
-				}
-				if(gameObjs[2]==hits[index].transform.gameObject)
-				{
-					print("Response time: " + (timeCounter*1000) + " msecs.");
-					gameOver = true;
-					timeCounter = 0;
-				}
+				}				
 			}
 		}
 		else
