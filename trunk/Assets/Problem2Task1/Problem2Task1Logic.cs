@@ -30,14 +30,15 @@ public class Problem2Task1Logic : MonoBehaviour
     void Start()
     {
 
-        // Instantiate a copy of every kind of cube and put them in a
-        // galaxy far, far away.
+        // Instantiate a copy of every kind of cube and put them in a galaxy far, far away.
         cubes = new GameObject[8];
         for (int i = 0; i < numberOfCubes; i++)
         {
             cubes[i] = Object.Instantiate(cubePrefab[i]) as GameObject;
-            cubes[i].transform.position = new Vector3(0, 0, -10000);
+            cubes[i].transform.position = new Vector3(-10000, -10000, -10000);
         }
+		
+		cubes[0].active = false;
 
         displayedCubes = new GameObject[4];
         currentLevel = 0;
@@ -67,6 +68,7 @@ public class Problem2Task1Logic : MonoBehaviour
 			if(mg != null)
 			{
 				mg.totalScore = totalPoints;
+				mg.setChronometerPrefix("TIEMPO RESTANTE:\n     ");
 			} // End if.
 		} // End if.
 		else
@@ -98,7 +100,6 @@ public class Problem2Task1Logic : MonoBehaviour
         totalTimeCounter += Time.deltaTime;
         if (totalTimeCounter > TOTAL_TIME)
         {
-//            print("Time's up!");
 			// CARGA DE LA ESCENA
             Application.LoadLevel("RunScreen");
         }
@@ -139,10 +140,15 @@ public class Problem2Task1Logic : MonoBehaviour
                 if (scriptDisplayedCube.getColorName() == scriptCubeHit.getColorName())
                 {
                     //Object.Destroy(hits[index].transform.gameObject);
-                    for (int i = 0; i < 4; i++)
+					int i;
+                    for(i=0;i<4;i++)
                     {
                         Object.Destroy(displayedCubes[i]);
                     }
+					for(i=0;i<8;i++)
+					{
+						Object.Destroy(cubes[i]);
+					}
 //                    print("Response time: " + timeElapsed + " msecs.");
                     replaceScreenObjs = true;
 					
@@ -169,60 +175,47 @@ public class Problem2Task1Logic : MonoBehaviour
 
     protected void assignDisplayedCubes()
     {
-        int mainColorIndex = Random.Range(0, numberOfCubes);
-        displayedCubes[0] = Object.Instantiate(cubePrefab[mainColorIndex]) as GameObject;
-        scriptDisplayedCube = (ScriptCube)displayedCubes[0].GetComponent("ScriptCube");
+		int i;
+		int tempVal;
 		
-//		print("NEW ROUND");
-
+		// Determine the main three colors that will be used.
 		ArrayList usedColors = new ArrayList();
-		usedColors.Add(mainColorIndex);
-        do
-        {
-            signColorIndex = Random.Range(0, numberOfCubes);
-        } while (true==usedColors.Contains(signColorIndex));
-		usedColors.Add(signColorIndex);		
-
-        signColorR = ((ScriptCube)cubePrefab[signColorIndex].GetComponent("ScriptCube")).fColorR;
+		print("Used colors: ");
+		for(i=0;i<3;i++)
+		{
+			do
+			{
+				tempVal = Random.Range(0,numberOfCubes);
+			} while(usedColors.Contains(tempVal));
+			print(tempVal);
+			usedColors.Add(tempVal);
+		}
+		
+		// Determine the two that will be used as the main and sign color, respectively.
+		int mainColorIndex = (int)usedColors[Random.Range(0,3)];
+		int signColorIndex;
+		do
+		{
+			signColorIndex = (int)usedColors[Random.Range(0,3)];
+		} while(signColorIndex==mainColorIndex);		
+		
+		signColorR = ((ScriptCube)cubePrefab[signColorIndex].GetComponent("ScriptCube")).fColorR;
         signColorG = ((ScriptCube)cubePrefab[signColorIndex].GetComponent("ScriptCube")).fColorG;
         signColorB = ((ScriptCube)cubePrefab[signColorIndex].GetComponent("ScriptCube")).fColorB;
-        signText = scriptDisplayedCube.colorNameSP;
-
-		ArrayList usedSlots = new ArrayList();		
-        int mainColorAssignedSlot = Random.Range(1, 4);
-		usedSlots.Add(mainColorAssignedSlot);
-        int signColorAssignedSlot;
-        do
-        {
-            signColorAssignedSlot = Random.Range(1, 4);
-        } while (true==usedSlots.Contains(signColorAssignedSlot));
-		usedSlots.Add(signColorAssignedSlot);
-
-        displayedCubes[mainColorAssignedSlot] = Object.Instantiate(cubePrefab[mainColorIndex]) as GameObject;
-        displayedCubes[signColorAssignedSlot] = Object.Instantiate(cubePrefab[signColorIndex]) as GameObject;
-
-        for (int i = 1; i < 4; i++)
-        {
-            if (false==usedSlots.Contains(i))
-            {
-				usedSlots.Add(i);
-                int randomVal;
-                do
-                {
-                    randomVal = Random.Range(0, numberOfCubes);
-                } while (true==usedColors.Contains(randomVal));
-                usedColors.Add(randomVal);
-                displayedCubes[i] = Object.Instantiate(cubePrefab[randomVal]) as GameObject;
-            }
-        }
 		
-//		print("Colors: " + usedColors[0] + " " + usedColors[1] + " " + usedColors[2]);
-//		print("Slots: " + usedSlots[0] + " " + usedSlots[1] + " " + usedSlots[2]);
+		displayedCubes[0] = Object.Instantiate(cubePrefab[mainColorIndex]) as GameObject;
+        scriptDisplayedCube = (ScriptCube)displayedCubes[0].GetComponent("ScriptCube");
+        signText = scriptDisplayedCube.colorNameSP;		
+		
+		int index;
+		index = ((int)(usedColors[0])); displayedCubes[1] = Object.Instantiate(cubePrefab[index]) as GameObject;
+		index = ((int)(usedColors[1])); displayedCubes[2] = Object.Instantiate(cubePrefab[index]) as GameObject;
+		index = ((int)(usedColors[2])); displayedCubes[3] = Object.Instantiate(cubePrefab[index]) as GameObject;
 
-//		displayedCubes[0].transform.position = new Vector3(0,4,0); // No need to display a cube at slot 0.
+		displayedCubes[0].transform.position = new Vector3(-10000,-10000,-10000);
         displayedCubes[1].transform.position = new Vector3(-3, 0, 0);
         displayedCubes[2].transform.position = new Vector3(0, 0, 0);
-        displayedCubes[3].transform.position = new Vector3(3, 0, 0);
+        displayedCubes[3].transform.position = new Vector3(3, 0, 0);		
 
         timeCounter = 0;
         timeElapsed = 0;

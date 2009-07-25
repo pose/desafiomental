@@ -6,17 +6,22 @@ public class MainScreenBehaviour : MonoBehaviour {
 	Color backColor;
 	bool goingDown = true;
 	float fadeSpeed = 0.005f;
+	
+	public AudioSource mainScreenAudio;
 
 	// Use this for initialization
 	void Start () {
 		backColor = new Color(.5f,.5f,.5f,.5f);
+		mainScreenAudio.Play();
 	}
-	
+		
 	public void OnMouseDown(){
 		GameObject pm;
 		PointsManagerBehaviour a;
 		Application.LoadLevel("DescriptionScreen");
 		pm = GameObject.Find("GameManager");
+		mainScreenAudio.Stop();
+		print("LALA");
 		
 		a = (PointsManagerBehaviour)pm.GetComponent("PointsManagerBehaviour");
 		

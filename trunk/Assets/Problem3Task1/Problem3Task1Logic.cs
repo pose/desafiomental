@@ -35,7 +35,7 @@ public class Problem3Task1Logic : MonoBehaviour {
 			if(pmb != null)
 			{
 				totalPoints = pmb.getPoints();
-				print("Total points: " + totalPoints);
+				print("Total points: " + totalPoints);				
 			} // End if.
 		} // End if.
 		else
@@ -50,6 +50,7 @@ public class Problem3Task1Logic : MonoBehaviour {
 			if(mg != null)
 			{
 				mg.totalScore = totalPoints;
+				mg.setChronometerPrefix("TIEMPO DE RESPUESTA:\n          ");
 			} // End if.
 		} // End if.
 		else
@@ -61,6 +62,9 @@ public class Problem3Task1Logic : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+//		if(Input.GetMouseButton(0))
+			//print("Mouse x: " + Input.mousePosition.x + " y: " + Input.mousePosition.y);
+		
 		if(!lightIsOn)
 		{
 			timeCounter += Time.deltaTime;
@@ -74,35 +78,16 @@ public class Problem3Task1Logic : MonoBehaviour {
 		}
 		else if(!gameOver)
 		{
-			timeCounter += Time.deltaTime;			
+			timeCounter += Time.deltaTime;	
 			mg.updateCronometer(timeCounter);
-			
-			RaycastHit [] hits;
-			if(Input.GetMouseButton(0))
+
+			if(Input.GetMouseButton(0) && Input.mousePosition.x > 342 && Input.mousePosition.x < 405 &&
+				Input.mousePosition.y >= 95 && Input.mousePosition.y <= 158)
 			{
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				hits = Physics.RaycastAll(ray);
-				int index = 0;
-				float dist = 0;				
-				if (hits.Length>0)
-				{
-					dist = hits[0].distance;
-					for (int i=1; i<hits.Length; i++)
-					{
-						if (dist>hits[i].distance)
-						{
-							dist = hits[i].distance;
-							index = i;
-						}
-					}					
-					if(gameObjs[2]==hits[index].transform.gameObject)
-					{
-						print("Response time: " + (timeCounter*1000) + " msecs.");
-						gameOver = true;
-						timeCounter = 0;
-						mg.updateCronometer(timeCounter);
-					}
-				}				
+				print("Response time: " + (timeCounter*1000) + " msecs.");
+				gameOver = true;
+				timeCounter = 0;
+				mg.updateCronometer(timeCounter);
 			}
 		}
 		else
@@ -121,7 +106,7 @@ public class Problem3Task1Logic : MonoBehaviour {
 		gameObjs[0].active = true;
 		gameObjs[1].transform.position = new Vector3(0.55f,0.9f,0);
 		gameObjs[1].active = false;
-		gameObjs[2].transform.position = new Vector3(0,-3,0);		
+		gameObjs[2].transform.position = new Vector3(0.5f,0.25f,0);		
 		currentLevel++;
 		
 		timeCounter = 0;
