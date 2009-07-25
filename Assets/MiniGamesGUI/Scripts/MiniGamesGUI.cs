@@ -25,6 +25,7 @@ public class MiniGamesGUI : MonoBehaviour
 	public AudioSource partialWinAudio;
 	public AudioSource partialLoseAudio;
 	
+	private string chronometerPrefix = "";
 	private int minutes;
 	private int seconds;
 	private int msecs;
@@ -57,7 +58,7 @@ public class MiniGamesGUI : MonoBehaviour
 
     public void PartialWin()
     {
-        backupNotice = notice = "CORRECT!";
+        backupNotice = notice = "¡CORRECTO!";
         noticeTime = 1.0f;
 		noticeStyle.normal.textColor = new Color(0.0f,0.75f,0.0f, 1.0f);
 		partialWinAudio.Play();
@@ -65,7 +66,7 @@ public class MiniGamesGUI : MonoBehaviour
 
     public void PartialLose()
     {
-        backupNotice = notice = "WRONG!";
+        backupNotice = notice = "¡INCORRECTO!";
         noticeTime = 1.0f;
 		noticeStyle.normal.textColor = new Color(0.75f,0.0f,0.0f, 1.0f);
 		partialLoseAudio.Play();
@@ -88,6 +89,11 @@ public class MiniGamesGUI : MonoBehaviour
         backupNotice= this.notice = msg;
         this.noticeTime = duration;
     }
+	
+	public void setChronometerPrefix(string prefix)
+	{
+		chronometerPrefix = prefix;
+	}		
 	
 	public void updateCronometer(float time)
 	{
@@ -155,8 +161,8 @@ public class MiniGamesGUI : MonoBehaviour
 		
 		// Print the chronometer.
 		chronometerStyle.normal.textColor = new Color(0.75f,0.0f,0.0f, 1.0f);
-        GUI.Label(new Rect(25, 110, 500, 60), string.Format("{0:00}:{1:00}:{2:00}",minutes,seconds,msecs), chronometerStyle); // Format the string
-			// using the oh-so-intuitive C# way.
+        GUI.Label(new Rect(25, 110, 500, 60), string.Format("{0}{1:00}:{2:00}:{3:00}",chronometerPrefix,minutes,seconds,msecs),
+			chronometerStyle); // Format the string  using the oh-so-intuitive C# way.
 
         GUILayout.Box(stairway[WhichYear(year, level) % stairway.Length], stairStyle);
         
