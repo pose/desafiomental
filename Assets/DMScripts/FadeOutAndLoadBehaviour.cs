@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class FadeOutAndLoadBehaviour : MonoBehaviour {
-	
+
 	public string sceneToLoad;
 	public string[] textureNames;
     private Faders fader = null;
@@ -12,7 +12,9 @@ public class FadeOutAndLoadBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
             qty = 0;
+
             fader = new Faders();
+
             for ( i = 0; i < textureNames.Length ; i++ ){
 				fader.setBackColor(new Color(.5f,.5f,.5f,.5f), textureNames[i]);
 			}
@@ -32,6 +34,7 @@ public class FadeOutAndLoadBehaviour : MonoBehaviour {
 				}
 				
                 if( qty == textureNames.Length ){
+     
 					Application.LoadLevel(sceneToLoad);
 				}
 			}
