@@ -8,6 +8,7 @@ public class Problem2Task1Logic : MonoBehaviour
     public GameObject[] cubePrefab;
     public int numberOfCubes;
     public GUIStyle style;
+	public AudioSource backgroundMusic;
 
     GameObject[] cubes;
     GameObject[] displayedCubes;
@@ -29,7 +30,11 @@ public class Problem2Task1Logic : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+		if(!backgroundMusic.isPlaying)
+		{
+			//backgroundMusic.Play();
+		}
+		
         // Instantiate a copy of every kind of cube and put them in a galaxy far, far away.
         cubes = new GameObject[8];
         for (int i = 0; i < numberOfCubes; i++)
@@ -94,12 +99,13 @@ public class Problem2Task1Logic : MonoBehaviour
             assignDisplayedCubes();
         }
 
-		timeRemaining -= Time.deltaTime;
+		timeRemaining -= Time.deltaTime;		
 		mg.updateCronometer(timeRemaining);
 		
         totalTimeCounter += Time.deltaTime;
         if (totalTimeCounter > TOTAL_TIME)
         {
+			backgroundMusic.Stop();
 			// CARGA DE LA ESCENA
             Application.LoadLevel("RunScreen");
         }
