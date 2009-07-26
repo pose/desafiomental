@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class Problem3Task1Logic : MonoBehaviour {
-	
+public class Problem3Task1Logic : MonoBehaviour
+{
 	public GameObject [] prefabs;
+	public AudioSource backgroundMusic;
 	
 	GameObject [] gameObjs;
 	GameObject [] displayedCubes;
@@ -20,6 +21,11 @@ public class Problem3Task1Logic : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		if(!backgroundMusic.isPlaying)
+		{
+			backgroundMusic.Play();
+		}
+		
 		gameObjs = new GameObject[3];
 		for(int i=0;i<3;i++)
 		{
@@ -62,6 +68,12 @@ public class Problem3Task1Logic : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if(currentLevel==4)
+		{
+			backgroundMusic.Stop();
+			// CARGA DE LA ESCENA			
+            Application.LoadLevel("RunScreen");
+		}
 //		if(Input.GetMouseButton(0))
 			//print("Mouse x: " + Input.mousePosition.x + " y: " + Input.mousePosition.y);
 		
@@ -84,7 +96,27 @@ public class Problem3Task1Logic : MonoBehaviour {
 			if(Input.GetMouseButton(0) && Input.mousePosition.x > 342 && Input.mousePosition.x < 405 &&
 				Input.mousePosition.y >= 95 && Input.mousePosition.y <= 158)
 			{
-				print("Response time: " + (timeCounter*1000) + " msecs.");
+				float responseTime = (timeCounter*1000);
+				mg.setNoticeXY(175,70);
+				mg.setPartialWinString("Response time: " + responseTime + " msecs.");
+				mg.setPartialWinLoseDisplayTime(2.0f);
+				mg.PartialWin();
+				
+				long lScore = (long)(15.0f - timeCounter);
+				
+				// Add the score.
+				if(mg != null)
+				{
+					mg.PartialWin();
+					mg.levelScore += lScore;
+					mg.totalScore += lScore;
+				} // End if.
+					
+				if(pmb != null)
+				{
+					pmb.incrementPoints(lScore);
+				} // End if.
+				
 				gameOver = true;
 				timeCounter = 0;
 				mg.updateCronometer(timeCounter);

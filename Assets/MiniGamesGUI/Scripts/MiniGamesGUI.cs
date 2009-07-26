@@ -17,6 +17,11 @@ public class MiniGamesGUI : MonoBehaviour
     [HideInInspector]
     public int level;
 
+	private string partialWinString = "  ¡CORRECTO!";
+	private string partialLoseString = "¡INCORRECTO!";
+	private float partialWinLoseDisplayTime = 1.0f;
+	private int noticeX = 270;
+	private int noticeY = 60;
     private float noticeTime = 0f;
 	private float noticeCyclesCounter = 0;
     private string notice = "";
@@ -29,6 +34,19 @@ public class MiniGamesGUI : MonoBehaviour
 	private int minutes;
 	private int seconds;
 	private int msecs;
+	
+	void resetToDefaultParams()
+	{
+		partialWinString = "  ¡CORRECTO!";
+		partialLoseString = "¡INCORRECTO!";
+		partialWinLoseDisplayTime = 1.0f;
+		noticeX = 270;
+		noticeY = 60;
+		noticeTime = 0f;
+		noticeCyclesCounter = 0;
+		notice = "";
+		backupNotice = "";
+	}
     
     void Update()
     {
@@ -55,19 +73,48 @@ public class MiniGamesGUI : MonoBehaviour
 			}
 		}
     }
-
+	
+	public void setPartialWinString(string str)
+	{
+		partialWinString = str;
+	}
+	
+	public void setPartialLoseString(string str)
+	{
+		partialLoseString = str;
+	}
+	
+	public float getPartialWinLoseDisplayTime()
+	{
+		return partialWinLoseDisplayTime;
+	}
+	
+	public void setPartialWinLoseDisplayTime(float ftime)
+	{
+		partialWinLoseDisplayTime = ftime;
+	}
+	
+	public int getNoticeX() { return noticeX; }
+	public int getNoticeY() { return noticeY; }
+	
+	public void setNoticeXY(int x,int y)
+	{
+		noticeX = x; noticeY = y;
+		print("NoticeX: " + noticeX + " - NoticeY: " + noticeY);
+	}
+	
     public void PartialWin()
     {
-        backupNotice = notice = "¡CORRECTO!";
-        noticeTime = 1.0f;
+        backupNotice = notice = partialWinString;
+        noticeTime = partialWinLoseDisplayTime;
 		noticeStyle.normal.textColor = new Color(0.0f,0.75f,0.0f, 1.0f);
 		partialWinAudio.Play();
     }
 
     public void PartialLose()
     {
-        backupNotice = notice = "¡INCORRECTO!";
-        noticeTime = 1.0f;
+        backupNotice = notice = partialLoseString;
+        noticeTime = partialWinLoseDisplayTime;
 		noticeStyle.normal.textColor = new Color(0.75f,0.0f,0.0f, 1.0f);
 		partialLoseAudio.Play();
     }
@@ -97,6 +144,7 @@ public class MiniGamesGUI : MonoBehaviour
 	
 	public void updateCronometer(float time)
 	{
+		if(time < 0) time = 0;
 		minutes = ((int)time) / 60;
 		seconds = ((int)time) % 60;
 		msecs = (int)((time - ((int)time)) * 100);
@@ -141,7 +189,7 @@ public class MiniGamesGUI : MonoBehaviour
         
 		// Print the notices.
         //GUILayout.Label(new GUIContent(notice), noticeStyle); // Old code.		
-        GUI.Label(new Rect(300,60,500,60),notice, noticeStyle);
+        GUI.Label(new Rect(noticeX,noticeY,500,60),notice, noticeStyle);
 		
 
         GUILayout.FlexibleSpace();
