@@ -3,6 +3,7 @@
 public class BallGenerator : MonoBehaviour
 {
     public int numberOfBalls = 20;
+    public AudioSource song;
     public GameObject ball = null;
     public Color[] possibleBallColors = { Color.red, Color.green, Color.blue };
     public string[] colorNames = { "Rojo", "Verde", "Azul" };
@@ -20,6 +21,7 @@ public class BallGenerator : MonoBehaviour
     
     void Start()
     {
+        
         if (numberOfBalls < 1)
             throw new System.ArgumentException("numberOfBalls can't be less than 1");
 
@@ -59,6 +61,10 @@ public class BallGenerator : MonoBehaviour
 			mg = ((MiniGamesGUI)mggo.GetComponent("MiniGamesGUI"));
 			mg.totalScore = totalPoints;
 		} // End if.
+
+        if (!song.isPlaying)
+            song.Play();
+
     }
 
     void Reset2()
@@ -154,6 +160,7 @@ public class BallGenerator : MonoBehaviour
                     pManager.setCurrentGame(mapper.getGameNumber("IdentificacionCromatica"));
                 }
             }
+            song.Stop();
 			Application.LoadLevel("GameDescription");
         }
         
