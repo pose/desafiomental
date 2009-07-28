@@ -30,9 +30,14 @@ public class Problem2Task1Logic : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		print("START!");
 		if(!backgroundMusic.isPlaying)
 		{
-			//backgroundMusic.Play();
+			backgroundMusic.Play();
+		}
+		else
+		{
+			print("PLAYING");
 		}
 		
         // Instantiate a copy of every kind of cube and put them in a galaxy far, far away.
