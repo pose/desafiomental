@@ -30,23 +30,28 @@ public class GamesDescriptionBehaviour : MonoBehaviour {
 
        // ((FadeInEffectBehaviour)(GameObject.Find("GameDescriptionTexture").GetComponent("FadeInEffectBehaviour"))).texturesNames[0] = textures[idx - 1].name;
         
-        fader.setBackColor(new Color(.5f, .5f, .5f, .5f), textures[idx - 1].name);
+      //  fader.setBackColor(new Color(.5f, .5f, .5f, .5f), textures[idx - 1].name);
 
     }
 	
 	public void OnMouseDown(){
-        goingDown = true;
+        GameObject go = GameObject.Find("GameManager");
+        AudioBehaviour aManager;
+        if (go != null)
+        {
+            aManager = ((AudioBehaviour)go.GetComponent("AudioBehaviour"));
+            if (aManager != null)
+            {
+                aManager.stopAudio();
+            }
+        }
+
+        Application.LoadLevel(sceneToLoad);
 	}
 	
 	
 	// Update is called once per frame
 	void Update () {
-			if( goingDown ){
-
-				if ( fader.fadeOut(textures[idx-1].name) == 1 )
-                {
-					Application.LoadLevel(sceneToLoad);
-				}
-			}
+	
 	}
 }

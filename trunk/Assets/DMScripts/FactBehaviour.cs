@@ -5,10 +5,21 @@ using System.Collections;
 public class FactBehaviour : MonoBehaviour {
 
     public string gameToLoad;
-	
+    private const int AUDIO_CODE = 1;
+    private AudioBehaviour aManager = null;
 	// Use this for initialization
 	void Start () {
-	
+        GameObject go = GameObject.Find("GameManager");
+
+        if (go != null)
+        {
+            aManager = ((AudioBehaviour)go.GetComponent("AudioBehaviour"));
+            if (aManager != null)
+            {
+                aManager.setAudio(AUDIO_CODE);
+                aManager.playAudio();
+            }
+        }
 	}
 	
 	public void OnMouseDown(){

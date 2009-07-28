@@ -20,7 +20,7 @@ public class YearButtonBehaviour : MonoBehaviour {
             AudioBehaviour audioManager = ((AudioBehaviour)go.GetComponent("AudioBehaviour"));
             if (audioManager != null)
             {
-                audioManager.screenAudio.Stop();
+                audioManager.stopAudio();
             }
         }
         Application.LoadLevel("ITBAFact" + year  + "Screen");
