@@ -2,6 +2,7 @@
 
 public class LevelController : MonoBehaviour
 {
+    public AudioSource song;
     private GameObject[] targets;
     private bool[] complete;
     public string onWinLoad = null;
@@ -10,6 +11,11 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
+        GameObject go = GameObject.Find("GameManager");
+
+
+        if (!song.isPlaying)
+            song.Play();
         targets = new GameObject[transform.childCount];
 
         int i = 0;
@@ -42,6 +48,8 @@ public class LevelController : MonoBehaviour
                 return;
         }
 
+        song.Stop();
+
         if( onWinLoad != null && !onWinLoad.Equals("") )
             Application.LoadLevel(onWinLoad);
     }
@@ -53,6 +61,7 @@ public class LevelController : MonoBehaviour
         hits = Physics.RaycastAll(ray);
         int index = 0;
         float dist = 0;
+        Debug.Log(hits.Length);
         if (hits.Length > 0)
         {
             dist = hits[0].distance;
@@ -67,6 +76,7 @@ public class LevelController : MonoBehaviour
 
             Link link = (Link)hits[index].transform.gameObject.GetComponent(typeof(Link));
 
+            Debug.Log(link);
             // Mouse down
             if (link != null && Input.GetMouseButton(0))
             {
