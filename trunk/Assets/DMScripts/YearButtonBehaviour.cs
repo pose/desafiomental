@@ -8,16 +8,20 @@ public class YearButtonBehaviour : MonoBehaviour {
     public AudioSource screenAudio;
 	// Use this for initialization
 	void Start () {
-        if (screenAudio != null)
-        {
-            screenAudio.Play();
-        }
+
 	}
 	
 	public void OnMouseDown(){
-        if (screenAudio != null)
+        GameObject go = GameObject.Find("GameManager");
+        GamesMapper mapper = new GamesMapper();
+
+        if (go != null)
         {
-            screenAudio.Stop();
+            AudioBehaviour audioManager = ((AudioBehaviour)go.GetComponent("AudioBehaviour"));
+            if (audioManager != null)
+            {
+                audioManager.screenAudio.Stop();
+            }
         }
         Application.LoadLevel("ITBAFact" + year  + "Screen");
     }
