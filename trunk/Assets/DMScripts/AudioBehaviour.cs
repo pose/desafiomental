@@ -5,20 +5,13 @@ public class AudioBehaviour : MonoBehaviour {
 	
 	public AudioSource[] sources;
     private AudioSource currentAudio;
-    bool loading = false;
 
 	// Use this for initialization
 	void Start () {
-
         setAudio(0);
         playAudio();
 
 	}
-
-    void OnMouseDown()
-    {
-        loading = true;
-    }
 
     public void setAudio(int audioCode)
     {
@@ -43,11 +36,6 @@ public class AudioBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (loading)
-        {
-            loading = false;
-            stopAudio();
-        }
 
 	}
 }
