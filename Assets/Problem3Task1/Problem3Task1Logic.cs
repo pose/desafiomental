@@ -72,7 +72,18 @@ public class Problem3Task1Logic : MonoBehaviour
 		{
 			backgroundMusic.Stop();
 			// CARGA DE LA ESCENA			
-            Application.LoadLevel("RunScreen");
+            GameObject go = GameObject.Find("GameManager");
+            GamesMapper mapper = new GamesMapper();
+
+            if (go != null)
+            {
+                PointsManagerBehaviour pManager = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+                if (pManager != null)
+                {
+                    pManager.setCurrentGame(mapper.getGameNumber("CapacidadDeRespuestaAvanzada"));
+                }
+            }
+            Application.LoadLevel("GameDescription");
 		}
 //		if(Input.GetMouseButton(0))
 			//print("Mouse x: " + Input.mousePosition.x + " y: " + Input.mousePosition.y);

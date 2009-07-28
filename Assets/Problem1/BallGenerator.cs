@@ -143,7 +143,18 @@ public class BallGenerator : MonoBehaviour
 				pmb.incrementLevelsCompleted(1);
 			} // End if.
             // Change level
-			Application.LoadLevel("RunScreen");
+            GameObject go = GameObject.Find("GameManager");
+            GamesMapper mapper = new GamesMapper();
+
+            if (go != null)
+            {
+                PointsManagerBehaviour pManager = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+                if (pManager != null)
+                {
+                    pManager.setCurrentGame(mapper.getGameNumber("IdentificacionCromatica"));
+                }
+            }
+			Application.LoadLevel("GameDescription");
         }
         
     }

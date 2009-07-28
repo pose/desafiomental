@@ -12,7 +12,7 @@ public class PointsManagerBehaviour : MonoBehaviour {
 	// Use this for initialization
 
 	void Start () {
-		DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
         gamePoints = new Dictionary<string, long>();
 		points = 0;
 	}
