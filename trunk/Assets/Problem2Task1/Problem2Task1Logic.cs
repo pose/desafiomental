@@ -107,7 +107,18 @@ public class Problem2Task1Logic : MonoBehaviour
         {
 			backgroundMusic.Stop();
 			// CARGA DE LA ESCENA
-            Application.LoadLevel("RunScreen");
+            GameObject go = GameObject.Find("GameManager");
+            GamesMapper mapper = new GamesMapper();
+
+            if (go != null)
+            {
+                PointsManagerBehaviour pManager = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+                if (pManager != null)
+                {
+                    pManager.setCurrentGame(mapper.getGameNumber("CapacidadDeRespuesta"));
+                }
+            }
+            Application.LoadLevel("GameDescription");
         }
         timeCounter += Time.deltaTime;
         
