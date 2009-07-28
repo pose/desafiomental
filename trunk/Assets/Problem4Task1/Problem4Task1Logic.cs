@@ -65,6 +65,13 @@ public class Problem4Task1Logic : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if(currentLevel==4)
+		{
+			print("FIN!");
+//			backgroundMusic.Stop();
+			// CARGA DE LA ESCENA			
+            Application.LoadLevel("RunScreen");
+		}
 //		if(Input.GetMouseButton(0))
 			//print("Mouse x: " + Input.mousePosition.x + " y: " + Input.mousePosition.y);
 		
