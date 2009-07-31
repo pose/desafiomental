@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Problem2Task1Logic : MonoBehaviour
 {
-	const float TOTAL_TIME = 6000.0f;// 60.0f;	
+	const float TOTAL_TIME = 60.0f;	
 
     public GameObject[] cubePrefab;
     public int numberOfCubes;
@@ -33,7 +33,7 @@ public class Problem2Task1Logic : MonoBehaviour
 		print("START!");
 		if(!backgroundMusic.isPlaying)
 		{
-			//backgroundMusic.Play();
+			backgroundMusic.Play();
 		}
 		else
 		{
