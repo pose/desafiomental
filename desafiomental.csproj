@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{78FF6D11-E38B-BE1C-E8C3-518B204A4967}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -41,32 +41,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DMScripts\AudioBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\ContinueButtonBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\MainBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\FactBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\FadeInEffectBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\FadeOutAndLoadBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\Faders.cs" />
-    <Compile Include="Assets\DMScripts\GamesDescriptionBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\GamesMapper.cs" />
-    <Compile Include="Assets\DMScripts\MainScreenBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\PointsManagerBehaviour.cs" />
-    <Compile Include="Assets\DMScripts\TryingFadeOut.cs" />
-    <Compile Include="Assets\DMScripts\YearButtonBehaviour.cs" />
-    <Compile Include="Assets\Editor\SyncVisualStudioSolution.cs" />
-    <Compile Include="Assets\MiniGamesGUI\Scripts\MiniGamesGUI.cs" />
-    <Compile Include="Assets\Problem1\BallGenerator.cs" />
-    <Compile Include="Assets\Problem2Task1\Problem2Task1Logic.cs" />
-    <Compile Include="Assets\Problem2Task1\Prefabs\._ScriptCube.cs" />
-    <Compile Include="Assets\Problem2Task1\Prefabs\ScriptCube.cs" />
-    <Compile Include="Assets\Problem3Task1\Problem3Task1Logic.cs" />
-    <Compile Include="Assets\Problem4Task1\Problem4Task1Logic.cs" />
-    <Compile Include="Assets\Problem8\LevelController\Scripts\LevelController.cs" />
-    <Compile Include="Assets\Problem8\LevelController\Scripts\TargetCollider.cs" />
-    <Compile Include="Assets\Problem8\Pendulum\Scripts\Link.cs" />
-    <Compile Include="Assets\Problem8\Pendulum\Scripts\Pendulum.cs" />
-    <Compile Include="Assets\Problem8\Pendulum\Scripts\Rotate.cs" />
+     <Compile Include="Assets\DMScripts\AudioBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\ContinueButtonBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\FactBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\FadeInEffectBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\FadeOutAndLoadBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\Faders.cs" />
+     <Compile Include="Assets\DMScripts\GamesDescriptionBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\GamesMapper.cs" />
+     <Compile Include="Assets\DMScripts\MainBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\MainScreenBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\PointsManagerBehaviour.cs" />
+     <Compile Include="Assets\DMScripts\TryingFadeOut.cs" />
+     <Compile Include="Assets\DMScripts\YearButtonBehaviour.cs" />
+     <Compile Include="Assets\Editor\SyncVisualStudioSolution.cs" />
+     <Compile Include="Assets\MiniGamesGUI\Scripts\MiniGamesGUI.cs" />
+     <Compile Include="Assets\Problem1\BallGenerator.cs" />
+     <Compile Include="Assets\Problem2Task1\Problem2Task1Logic.cs" />
+     <Compile Include="Assets\Problem2Task1\Prefabs\._ScriptCube.cs" />
+     <Compile Include="Assets\Problem2Task1\Prefabs\ScriptCube.cs" />
+     <Compile Include="Assets\Problem3Task1\Problem3Task1Logic.cs" />
+     <Compile Include="Assets\Problem4Task1\Problem4Task1Logic.cs" />
+     <Compile Include="Assets\Problem8\LevelController\Scripts\LevelController.cs" />
+     <Compile Include="Assets\Problem8\LevelController\Scripts\TargetCollider.cs" />
+     <Compile Include="Assets\Problem8\Pendulum\Scripts\Link.cs" />
+     <Compile Include="Assets\Problem8\Pendulum\Scripts\Pendulum.cs" />
+     <Compile Include="Assets\Problem8\Pendulum\Scripts\Rotate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -77,3 +77,4 @@
   </Target>
   -->
 </Project>
+    
