@@ -65,6 +65,8 @@ public class BallGenerator : MonoBehaviour
         if (!song.isPlaying)
             song.Play();
 
+
+
     }
 
     void Reset2()
@@ -135,8 +137,24 @@ public class BallGenerator : MonoBehaviour
     }
 
 
+    private float timeMoved = 0.0f;
+    private Vector3 direction = new Vector3(0.01f, 0);
+    private Vector3 rotation = new Vector3(0.02f, 0);
     void Update()
     {
+        GameObject camera = GameObject.Find("DirectionalLightCamera");
+        if (camera != null)
+        {
+            if (timeMoved > 3f)
+            {
+                timeMoved = 0f;
+                direction = -direction;
+                rotation = -rotation;
+            }
+            timeMoved += Time.deltaTime;
+            camera.transform.Translate(new Vector3(0.01f * Mathf.Sin(Time.time-Mathf.PI/2f), 0.01f * Mathf.Sin(Time.time)));
+            camera.transform.Rotate(new Vector3(0.01f * Mathf.Sin(Time.time+Mathf.PI/2f), 0.01f * Mathf.Sin(Time.time)));
+        }
 		timeRemaining -= Time.deltaTime;
 		mg.updateCronometer(timeRemaining);
 		
