@@ -32,7 +32,7 @@ public class TargetCollider : MonoBehaviour
         else
         {
             /*TODO: Lose game*/
-            Debug.Log("Lose");
+            
         }
     }
 }
