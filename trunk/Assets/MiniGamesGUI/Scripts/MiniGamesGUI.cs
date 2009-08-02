@@ -153,6 +153,7 @@ public class MiniGamesGUI : MonoBehaviour
     private int WhichYear(int problem, int task)
     {
         int[] problemLevels = { 0, 1, 1, 2, 0, 2, 3, 4 };
+        Debug.Log(problem);
         return problemLevels[problem - 1];
     }
 

@@ -8,7 +8,8 @@ public class Rotate : MonoBehaviour
 
     void FixedUpdate()
     {
-        float deltaAngle = rotationAngle * Mathf.Cos(Time.time * rotationsPerCycle)* Time.fixedDeltaTime;
-        this.transform.RotateAround(rotationVector, deltaAngle);
+        //float deltaAngle = rotationAngle * Mathf.Cos(Time.time * rotationsPerCycle)* Time.fixedDeltaTime;
+        //this.transform.RotateAround(rotationVector, deltaAngle);
+        
     }
 }

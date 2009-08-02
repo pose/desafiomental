@@ -41,12 +41,14 @@ public class Pendulum : MonoBehaviour
 
         chainGroup.transform.parent = this.transform;
         link.transform.parent = chainGroup.transform;
+        Vector3 newRotation = new Vector3(0, Mathf.PI/2);
 
         for (int i = 1; i < numberOfLinks; i++)
         {
             Vector3 newPosition = link.transform.position + Vector3.down * (distance / numberOfLinks) * i;
 
-            chain[i] = (GameObject) Instantiate(link, newPosition, Quaternion.identity);
+
+            chain[i] = (GameObject)Instantiate(link, newPosition, Quaternion.EulerAngles(newRotation));
             chain[i].name = "link" + i;
             chain[i].rigidbody.isKinematic = false;
             Destroy(chain[i].GetComponent("Rotate"));
@@ -55,6 +57,7 @@ public class Pendulum : MonoBehaviour
 
             join(chain[i], chain[i-1]);
 
+            newRotation.y += Mathf.PI / 2;
         }
 
         join(ball, chain[chain.Length - 1]);
@@ -66,6 +69,7 @@ public class Pendulum : MonoBehaviour
     public void Cut()
     {
         ball.transform.parent = this.transform.parent;
+        Destroy(ball.GetComponent("Sphere"));
         Destroy(this.gameObject);
     }
 
