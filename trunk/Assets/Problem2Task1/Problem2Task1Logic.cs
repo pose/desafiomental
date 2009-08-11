@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Problem2Task1Logic : MonoBehaviour
 {
-	const float TOTAL_TIME = 60.0f;	
+	const float TOTAL_TIME = 30.0f;	
 
     public GameObject[] cubePrefab;
     public int numberOfCubes;
@@ -101,7 +101,7 @@ public class Problem2Task1Logic : MonoBehaviour
 	Color color4 = new Color(0.75f,0.75f,0.75f,0);
 	Color color5 = new Color(0.2f,0.2f,0.2f,0);
 	int pingPongStep = 0;
-	float duration = 15.0f;
+	float duration = 7.5f;
 	
     // Update is called once per frame
     void Update()
