@@ -5,6 +5,8 @@ public class Problem4Task1Logic : MonoBehaviour {
 	
 	public GameObject [] prefabs;
 	public AudioSource backgroundMusic;
+	public GameObject sunFlare;
+	GameObject sunFlareGO;
 	
 	GameObject [] gameObjs;
 	GameObject [] displayedCubes;
@@ -14,6 +16,7 @@ public class Problem4Task1Logic : MonoBehaviour {
 	float timeTarget;
 	bool lightIsOn;
 	bool gameOver;
+	float totalTimeCounter;
 	
 	private float buttonX;
 	private float buttonY;
@@ -26,7 +29,7 @@ public class Problem4Task1Logic : MonoBehaviour {
 	{
 		if(!backgroundMusic.isPlaying)
 		{
-			backgroundMusic.Play();
+			//backgroundMusic.Play();
 		}
 		
 		gameObjs = new GameObject[3];
@@ -34,6 +37,8 @@ public class Problem4Task1Logic : MonoBehaviour {
 		{
 			gameObjs[i] = Object.Instantiate(prefabs[i]) as GameObject;			
 		}
+		sunFlareGO = Object.Instantiate(sunFlare) as GameObject;
+		sunFlareGO.transform.position = new Vector3(0, -100, 0);
 		InitializeLevel();
 		
 		long totalPoints = 0;
@@ -68,9 +73,51 @@ public class Problem4Task1Logic : MonoBehaviour {
 		} // End else.
 	}
 	
+	Color color1 = new Color(0,0.6f,0,0);
+	Color color2 = new Color(0,0,0.6f,0);
+	Color color3 = new Color(0.75f,0.75f,0.75f,0);
+	Color color4 = new Color(0.2f,0.2f,0.2f,0);
+	Color color5 = new Color(0.6f,0,0,0);
+	Color color6 = new Color(0,0.6f,0,0);	
+	int pingPongStep = 0;
+	float duration = 7.0f;
+	
 	// Update is called once per frame
 	void Update ()
 	{
+		float t;
+		if(totalTimeCounter < duration)
+		{
+			t = Mathf.PingPong (totalTimeCounter, duration) / duration;
+			Camera.main.backgroundColor = Color.Lerp(color1,color2,t);
+		}
+		else if(totalTimeCounter < 2*duration)
+		{
+			t = Mathf.PingPong (totalTimeCounter-duration,duration) / duration;
+			Camera.main.backgroundColor = Color.Lerp(color2,color3,t);
+		}
+		else if(totalTimeCounter < 3*duration)
+		{
+			t = Mathf.PingPong (totalTimeCounter-2*duration,duration) / duration;
+			Camera.main.backgroundColor = Color.Lerp(color3,color4,t);
+		}
+		else if(totalTimeCounter < 4*duration)
+		{
+			t = Mathf.PingPong (totalTimeCounter-3*duration,duration) / duration;
+			Camera.main.backgroundColor = Color.Lerp(color4,color5,t);
+		}
+		else if(totalTimeCounter < 5*duration)
+		{
+			t = Mathf.PingPong (totalTimeCounter-4*duration,duration) / duration;
+			Camera.main.backgroundColor = Color.Lerp(color5,color6,t);
+		}
+		else if(totalTimeCounter < 6*duration)
+		{
+			totalTimeCounter = 0;
+		}
+		
+		totalTimeCounter += Time.deltaTime;
+		
 		if(currentLevel==4)
 		{
 			backgroundMusic.Stop();
@@ -103,6 +150,7 @@ public class Problem4Task1Logic : MonoBehaviour {
 				timeCounter = 0;
 				buttonX = Random.Range(8,92)/100.0f; buttonY = Random.Range(25,45)/100.0f; 
 				gameObjs[2].transform.position = new Vector3(buttonX,buttonY,0);
+				sunFlareGO.transform.position = new Vector3(0, 3, 0);
 			}
 		}
 		else if(!gameOver)
@@ -127,6 +175,7 @@ public class Problem4Task1Logic : MonoBehaviour {
 				mg.PartialWin();
 				
 				long lScore = (long)(15.0f - timeCounter);
+				if(lScore < 0) lScore = 0;
 				
 				// Add the score.
 				if(mg != null)
@@ -170,5 +219,7 @@ public class Problem4Task1Logic : MonoBehaviour {
 		timeTarget = timeTarget / 1000;
 		lightIsOn = false;
 		gameOver = false;
+		
+		sunFlareGO.transform.position = new Vector3(0, -30, 0);
 	}
 }
