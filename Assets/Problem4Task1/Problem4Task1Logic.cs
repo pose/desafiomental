@@ -131,7 +131,7 @@ public class Problem4Task1Logic : MonoBehaviour {
                 PointsManagerBehaviour pManager = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
                 if (pManager != null)
                 {
-                    pManager.setCurrentGame(mapper.getGameNumber("CadenasEsferas"));
+                    pManager.setCurrentGame(mapper.getGameNumber("Balanza"));
                 }
             }
             Application.LoadLevel("GameDescription");
