@@ -29,8 +29,8 @@ public class Problem3Task1Logic : MonoBehaviour
 			backgroundMusic.Play();
 		}
 		
-		gameObjs = new GameObject[3];
-		for(int i=0;i<3;i++)
+		gameObjs = new GameObject[4];
+		for(int i=0;i<4;i++)
 		{
 			gameObjs[i] = Object.Instantiate(prefabs[i]) as GameObject;			
 		}
@@ -180,7 +180,10 @@ public class Problem3Task1Logic : MonoBehaviour
 				
 				gameOver = true;
 				timeCounter = 0;
-				mg.updateCronometer(timeCounter);				
+				mg.updateCronometer(timeCounter);
+				
+				gameObjs[2].active = false;
+				gameObjs[3].active = true;
 			}
 		}
 		else
@@ -199,7 +202,10 @@ public class Problem3Task1Logic : MonoBehaviour
 		gameObjs[0].active = true;
 		gameObjs[1].transform.position = new Vector3(0.55f,0.9f,0);
 		gameObjs[1].active = false;
-		gameObjs[2].transform.position = new Vector3(0.5f,0.25f,0);		
+		gameObjs[2].transform.position = new Vector3(0.5f,0.25f,0);
+		gameObjs[2].active = true;
+		gameObjs[3].transform.position = new Vector3(0.5f,0.25f,0);		
+		gameObjs[3].active = false;
 		currentLevel++;
 		
 		timeCounter = 0;
