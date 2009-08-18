@@ -35,6 +35,8 @@ public class MiniGamesGUI : MonoBehaviour
 	private int seconds;
 	private int msecs;
 	
+	private bool displayRestartLevelButton;
+	
 	void resetToDefaultParams()
 	{
 		partialWinString = "  ¡CORRECTO!";
@@ -46,6 +48,7 @@ public class MiniGamesGUI : MonoBehaviour
 		noticeCyclesCounter = 0;
 		notice = "";
 		backupNotice = "";
+		displayRestartLevelButton = false;
 	}
     
     void Update()
@@ -156,6 +159,16 @@ public class MiniGamesGUI : MonoBehaviour
         Debug.Log(problem);
         return problemLevels[problem - 1];
     }
+	
+	public void enableRestartLevelButton()
+	{
+		displayRestartLevelButton = true;
+	}
+	
+	public void disableRestartLevelButton()
+	{
+		displayRestartLevelButton = false;
+	}
 
     void OnGUI()
     {
@@ -176,10 +189,13 @@ public class MiniGamesGUI : MonoBehaviour
             //new Rect(Screen.width - 30 - 100, 30, 100, 50),
             //GUILayout.Label("Nivel: " + level);
         }
-        if (GUILayout.Button("Reiniciar Nivel"))
-        {
-            Application.LoadLevel(Application.loadedLevelName);
-        }
+		if(displayRestartLevelButton)
+		{
+			if (GUILayout.Button("Reiniciar Nivel"))
+			{
+				Application.LoadLevel(Application.loadedLevelName);
+			}
+		}
 
         GUILayout.EndHorizontal();
         
