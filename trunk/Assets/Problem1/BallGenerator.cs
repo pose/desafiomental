@@ -7,7 +7,8 @@ public class BallGenerator : MonoBehaviour
     public GameObject ball = null;
     public Color[] possibleBallColors = { Color.red, Color.green, Color.blue };
     public string[] colorNames = { "Rojo", "Verde", "Azul" };
-    public int[] colorsValue = { 3, 5, 7 };	
+    private int[] colorsValue;
+    public GUIStyle colorLabelStyles;
 	int levelScore = 0;
     public const float minutesToPlay = 1;
     private GameObject[] balls;
@@ -18,10 +19,24 @@ public class BallGenerator : MonoBehaviour
 	
 	PointsManagerBehaviour pmb = null;
 	MiniGamesGUI mg = null;
+
+    Color color1 = new Color(0, 0.6f, 0, 0);
+    Color color2 = new Color(0.6f, 0, 0, 0);
+    Color color3 = new Color(0, 0, 0.6f, 0);
+    Color color4 = new Color(0.75f, 0.75f, 0.75f, 0);
+    Color color5 = new Color(0.2f, 0.2f, 0.2f, 0);
+    int pingPongStep = 0;
+    float duration = 15.0f;
+
+    private string text = "";
+    public GUIStyle textStyle;
+    private float timeMoved = 0.0f;
+    private Vector3 direction = new Vector3(0.01f, 0);
+    private Vector3 rotation = new Vector3(0.02f, 0);
     
     void Start()
     {
-        
+/*        
         if (numberOfBalls < 1)
             throw new System.ArgumentException("numberOfBalls can't be less than 1");
 
@@ -31,6 +46,12 @@ public class BallGenerator : MonoBehaviour
         if (colorsValue.Length != possibleBallColors.Length)
             throw new System.ArgumentException("colorsValue and possibleBallColors can't have" +
                 " different Length");
+        */
+        colorsValue = new int[numberOfBalls];
+        for (int i = 0; i < numberOfBalls; i++)
+        {
+            colorsValue[i] = Random.RandomRange(1, 5);
+        }
 
         int randomAcum = 0;
         balls = new GameObject[numberOfBalls];
@@ -74,7 +95,7 @@ public class BallGenerator : MonoBehaviour
         for (int i = 0; i < balls.Length; i++)
             Destroy(balls[i]);
 
-        stringToEdit = "";
+        text = "";
         totalSum = 0;
         Start();
     }
@@ -82,20 +103,22 @@ public class BallGenerator : MonoBehaviour
     
     void OnGUI()
     {
-        GUILayout.BeginArea(new Rect(500, 50, 220, 300));
+        GUILayout.BeginArea(new Rect(670, 50, 220, 300));
 
 
         GUILayout.BeginVertical();
-        GUILayout.Box("Cantidad de esferas:", GUILayout.Width(220));
+        //GUILayout.Box("Cantidad de esferas:", GUILayout.Width(220));
         for(int i = 0; i < colorNames.Length; i++ )
         {
             GUILayout.BeginHorizontal();
-            GUILayout.Box(colorNames[i], GUILayout.Width(100));
-            GUILayout.Box(colorsValue[i].ToString());
+            colorLabelStyles.normal.textColor = possibleBallColors[i];
+            //GUILayout.Box(colorNames[i], GUILayout.Width(100));
+            GUILayout.Box(colorNames[i] + ": " + colorsValue[i].ToString(), colorLabelStyles);
             GUILayout.EndHorizontal();
         }
         
-        stringToEdit = GUILayout.TextField(stringToEdit);
+        //stringToEdit = GUILayout.TextField(stringToEdit);*/
+        GUILayout.Box(text, textStyle, GUILayout.Width(220));
         GUILayout.EndVertical();
 
         GUILayout.EndArea();
@@ -104,7 +127,7 @@ public class BallGenerator : MonoBehaviour
 
         try
         {
-            val = int.Parse(stringToEdit);
+            val = int.Parse(text);
         }
         catch (System.Exception e) 
         {
@@ -136,24 +159,27 @@ public class BallGenerator : MonoBehaviour
     
     }
 
-    Color color1 = new Color(0,0.6f,0,0);
-	Color color2 = new Color(0.6f,0,0,0);	
-	Color color3 = new Color(0,0,0.6f,0);
-	Color color4 = new Color(0.75f,0.75f,0.75f,0);
-	Color color5 = new Color(0.2f,0.2f,0.2f,0);
-	int pingPongStep = 0;
-	float duration = 15.0f;
-	
-    private float timeMoved = 0.0f;
-    private Vector3 direction = new Vector3(0.01f, 0);
-    private Vector3 rotation = new Vector3(0.02f, 0);
+
     void Update()
     {
+        string numbers = "0123456789";
+        foreach (char c in Input.inputString) {
+            // Backspace - Remove the last character
+            if (c == '\b') {
+                if (text.Length != 0)
+                    text = text.Substring(0, text.Length - 1);
+            }
+            // Normal text input - just append to the end
+            else {
+                if ( numbers.Contains(c.ToString()) && text.Length < 2) 
+                    text += c;
+            }
+        }
+
         float t;
         if (Time.time < duration)
         {
             t = Mathf.PingPong(Time.time, duration) / duration;
-            print(t);
             Camera.main.backgroundColor = Color.Lerp(color1, color2, t);
         }
         else if (Time.time < 2 * duration)
