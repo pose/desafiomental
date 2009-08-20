@@ -36,16 +36,12 @@ public class Problem6Task1Logic : MonoBehaviour
     void Start()
     {
 		print("START!");
-/*
+
 		if(!backgroundMusic.isPlaying)
 		{
 			backgroundMusic.Play();
 		}
-		else
-		{
-			print("PLAYING");
-		}
-*/
+
 		print("START!");
 		prepareThreeBlocks();
 				
@@ -136,7 +132,8 @@ public class Problem6Task1Logic : MonoBehaviour
                 PointsManagerBehaviour pManager = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
                 if (pManager != null)
                 {
-                    pManager.setCurrentGame(mapper.getGameNumber("BalanzaAvanzada"));
+                    //pManager.setCurrentGame(mapper.getGameNumber("BalanzaAvanzada"));
+					pManager.setCurrentGame(mapper.getGameNumber("CadenasEsferas"));
                 }
             }
             Application.LoadLevel("GameDescription");

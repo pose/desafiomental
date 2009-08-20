@@ -29,7 +29,7 @@ public class Problem4Task1Logic : MonoBehaviour {
 	{
 		if(!backgroundMusic.isPlaying)
 		{
-			//backgroundMusic.Play();
+			backgroundMusic.Play();
 		}
 		
 		gameObjs = new GameObject[4];
