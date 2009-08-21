@@ -38,6 +38,7 @@ public class Pendulum : MonoBehaviour
         chain[0] = link;
 
         chainGroup = new GameObject("Chain");
+        chainGroup.transform.position = this.transform.position;
 
         chainGroup.transform.parent = this.transform;
         link.transform.parent = chainGroup.transform;

@@ -2,13 +2,12 @@
 
 public class Sphere : MonoBehaviour
 {
-    public float energy;
-    private float myTime = 0f;
-    private bool initialized = false;
-    private float initialPositionY;
+    public float amp = 5f;
+    public float freq = 5f;
+    public float offset = 0;
     void FixedUpdate()
     {
-        if (!initialized && Time.time > 0.1f)
+    /*    if (!initialized && Time.time > 0.1f)
         {
             this.initialPositionY = this.transform.position.y;
             this.rigidbody.velocity = new Vector3(0.1f, 0);
@@ -18,30 +17,15 @@ public class Sphere : MonoBehaviour
  
 
         myTime += Time.deltaTime;
-        if (myTime > 0.1f && this.transform.position.y - this.initialPositionY < 0.01)
+        if (myTime > 1f )
         {
             updateVelocity();
         }
 
-        
+      */
+        this.rigidbody.velocity = new Vector3(amp * Mathf.Cos(Time.time*freq + offset), 0f);
 
     }
-    void updateVelocity()
-    {
-        float m = this.rigidbody.mass;
-        float g = Physics.gravity.magnitude;
-        float h = this.transform.position.y - this.initialPositionY;
-        float wnc = 0.5f * m * this.rigidbody.velocity.sqrMagnitude +
-            m * g * h - energy;
-        
-
-        //float dif = Mathf.Abs(this.rigidbody.velocity.x - 2f * (energy - wnc - m * g * h) / m);
-
-        this.rigidbody.velocity = new Vector3(Mathf.Sqrt(Mathf.Abs( 2f * (m * this.rigidbody.velocity.sqrMagnitude + 
-            m * g * h - energy) / m)) *
-            Mathf.Sign(this.rigidbody.velocity.x), 0);
-        myTime = 0;
-        
-    }
+   
 
 }

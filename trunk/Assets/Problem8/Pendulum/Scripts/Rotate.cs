@@ -10,6 +10,8 @@ public class Rotate : MonoBehaviour
     {
         //float deltaAngle = rotationAngle * Mathf.Cos(Time.time * rotationsPerCycle)* Time.fixedDeltaTime;
         //this.transform.RotateAround(rotationVector, deltaAngle);
+        //this.transform.Rotate(Space.World)
+        
         
     }
 }

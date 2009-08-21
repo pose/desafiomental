@@ -75,8 +75,8 @@ public class BallGenerator : MonoBehaviour
 			pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
 			totalPoints = pmb.getPoints();
 		} // End if.
-		
-		GameObject mggo = GameObject.Find("MiniGamesGUI");
+
+        GameObject mggo = GameObject.Find("MiniGamesGUI");
 		if (mggo != null)
 		{
 			mg = ((MiniGamesGUI)mggo.GetComponent("MiniGamesGUI"));
@@ -87,7 +87,6 @@ public class BallGenerator : MonoBehaviour
             song.Play();
 
 
-
     }
 
     void Reset2()
@@ -95,9 +94,10 @@ public class BallGenerator : MonoBehaviour
         for (int i = 0; i < balls.Length; i++)
             Destroy(balls[i]);
 
-        text = "";
+        
         totalSum = 0;
         Start();
+        text = "";
     }
 
     
@@ -144,6 +144,7 @@ public class BallGenerator : MonoBehaviour
 			if(mg != null)
 			{
 				mg.PartialWin();
+                mg.Notice("  ¡CORRECTO: " + text + "!", 1);
 				levelScore = (int)(mg.levelScore += (float)partialPoints);
 				mg.totalScore += (float)partialPoints;
 			} // End if.
