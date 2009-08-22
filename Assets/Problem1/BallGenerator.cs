@@ -13,7 +13,6 @@ public class BallGenerator : MonoBehaviour
     public const float minutesToPlay = 1;
     private GameObject[] balls;
     [HideInInspector] public int totalSum = 0;
-    private string stringToEdit = "";
     float totalTime = 0.001f;
 	float timeRemaining = minutesToPlay * 60;
 	
@@ -25,7 +24,6 @@ public class BallGenerator : MonoBehaviour
     Color color3 = new Color(0, 0, 0.6f, 0);
     Color color4 = new Color(0.75f, 0.75f, 0.75f, 0);
     Color color5 = new Color(0.2f, 0.2f, 0.2f, 0);
-    int pingPongStep = 0;
     float duration = 15.0f;
 
     private string text = "";

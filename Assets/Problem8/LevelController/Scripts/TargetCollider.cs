@@ -24,15 +24,12 @@ public class TargetCollider : MonoBehaviour
         if (collideTarget.collider == other)
         {
             Destroy(other.gameObject);
-            this.transform.parent.SendMessage("Complete", this.gameObject);
+            GameObject l = GameObject.Find("LevelController") as GameObject;
+            l.SendMessage("Complete", this.gameObject);
             if (destroyOnCorrectHit)
                 Destroy(gameObject);
 
         }
-        else
-        {
-            /*TODO: Lose game*/
-            
-        }
+
     }
 }
