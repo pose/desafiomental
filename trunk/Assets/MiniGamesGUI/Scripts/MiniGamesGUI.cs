@@ -17,6 +17,7 @@ public class MiniGamesGUI : MonoBehaviour
     [HideInInspector]
     public int level;
 
+    public bool doUnLoad = true;
 	private string partialWinString = "  ¡CORRECTO!";
 	private string partialLoseString = "¡INCORRECTO!";
 	private float partialWinLoseDisplayTime = 1.0f;
@@ -36,7 +37,13 @@ public class MiniGamesGUI : MonoBehaviour
 	private int msecs;
 	
 	private bool displayRestartLevelButton;
-	
+
+    void Start()
+    {
+        if (!doUnLoad)
+            DontDestroyOnLoad(this);
+    }
+
 	void resetToDefaultParams()
 	{
 		partialWinString = "  ¡CORRECTO!";

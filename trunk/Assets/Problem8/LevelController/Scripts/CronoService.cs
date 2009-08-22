@@ -2,19 +2,24 @@
 
 public class CronoService : MonoBehaviour
 {
-    public const float minutesToPlay = 0.5f;
-    float timeRemaining = minutesToPlay * 60;
+    public float minutesToPlay = 0.5f;
+    float timeRemaining;
     float totalTime = 0.001f;
 
     void Start()
     {
-
+        timeRemaining = minutesToPlay * 60;
     }
     void Update()
     {
-        MiniGamesGUI mg = Component.FindObjectOfType(System.Type.GetType("MiniGamesGUI")) as MiniGamesGUI;
         
-        PointsManagerBehaviour pmb = Component.FindObjectOfType(System.Type.GetType("PointsManagerBehavoiur")) as PointsManagerBehaviour;
+        MiniGamesGUI mg = Component.FindObjectOfType(System.Type.GetType("MiniGamesGUI")) as MiniGamesGUI;
+        PointsManagerBehaviour pmb = null;
+        
+        GameObject go = GameObject.Find("GameManager");
+        if (go != null)
+            pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+        
         GamesMapper mapper = new GamesMapper();
         
         timeRemaining -= Time.deltaTime;
@@ -29,18 +34,11 @@ public class CronoService : MonoBehaviour
                 pmb.incrementLevelsCompleted(1);
             } // End if.
             // Change level
-            GameObject go = GameObject.Find("GameManager");
 
-            if (go != null)
-            {
-                PointsManagerBehaviour pManager = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
-                if (pManager != null)
-                {
-                    pManager.setCurrentGame(mapper.getGameNumber("IdentificacionCromatica"));
-                }
-            }
-
-            Application.LoadLevel("GameDescription");
+            GameObject l = GameObject.Find("LevelController");
+            LevelController lc = l.GetComponent("LevelController") as LevelController;
+            lc.SendMessage("TimeIsUp");
+            Application.LoadLevel("ResultsScreen");
         }
     }
 }
