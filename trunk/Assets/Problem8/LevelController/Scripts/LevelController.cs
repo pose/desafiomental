@@ -36,7 +36,7 @@ public class LevelController : MonoBehaviour
 
         complete = new bool[targets.Length];
 
-        long totalPoints = 0;
+        long totalPoints = 5;
         if (go != null)
         {
             pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
@@ -87,13 +87,14 @@ public class LevelController : MonoBehaviour
         if (mg != null)
         {
             mg.PartialWin();
-            mg.totalScore += (float)100;
+            mg.totalScore += (float)50;
         } // End if.
 
         if (pmb != null)
         {
             print("PGM INCREMENTED");
             pmb.incrementPoints(100);
+            pmb.incrementLevelsCompleted(1);
         } // End if.
 
 
