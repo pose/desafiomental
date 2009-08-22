@@ -14,11 +14,9 @@ public class LevelController : MonoBehaviour
 
 
 
-    private ServiceLocator serviceLocator;
 
     void Start()
     {
-        //serviceLocator = ServiceLocator.GetInstance();
 
         GameObject go = GameObject.Find("GameManager");
  
@@ -47,6 +45,21 @@ public class LevelController : MonoBehaviour
     void Complete(Object target)
     {
         GameObject g = (GameObject) target;
+        GameObject mggo = GameObject.Find("MiniGamesGUI");
+        MiniGamesGUI mg = null;
+        if (mggo!= null)
+            mg = ((MiniGamesGUI)mggo.GetComponent("MiniGamesGUI"));
+
+        if (mg != null)
+        {
+            mg.PartialWin();
+            mg.totalScore += (float)50;
+        } // End if.
+
+        if (pmb != null)
+        {
+            pmb.incrementPoints(50);
+        } // End if.
 
         for (int i = 0; i < targets.Length; i++ )
         {
@@ -71,29 +84,36 @@ public class LevelController : MonoBehaviour
             totalPoints = pmb.getPoints();
         }
 
-        GameObject mggo = GameObject.Find("MiniGamesGUI");
-        MiniGamesGUI mg = ((MiniGamesGUI)mggo.GetComponent("MiniGamesGUI"));
+
+
         mg.totalScore = totalPoints;
 
-        if (mg != null)
+        if (mg != null && pmb != null)
         {
-            mg.PartialWin();
-            mg.totalScore += (float)50;
-        } // End if.
-
-        if (pmb != null)
-        {
-            print("PGM INCREMENTED");
-            pmb.incrementPoints(100);
             pmb.incrementLevelsCompleted(1);
-        } // End if.
+        }
 
 
         if (onWinLoad != null && !onWinLoad.Equals(""))
         {
-            if (onWinLoad.Equals("ResultsScreen")
+            if (lastScene)
+                this.onLastScene();
+
             Application.LoadLevel(onWinLoad);
 
+        }
+    }
+
+    private void onLastScene()
+    {
+        foreach ( Object c in Component.FindSceneObjectsOfType(System.Type.GetType("BackgroundBehaviour")) )
+        {
+            Destroy(c);
+        }
+
+        foreach (Object c in Component.FindSceneObjectsOfType(System.Type.GetType("CronoService")))
+        {
+            Destroy(c);
         }
     }
 
