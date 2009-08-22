@@ -52,6 +52,7 @@
     <Compile Include="Assets\DMScripts\MainBehaviour.cs" />
     <Compile Include="Assets\DMScripts\MainScreenBehaviour.cs" />
     <Compile Include="Assets\DMScripts\PointsManagerBehaviour.cs" />
+    <Compile Include="Assets\DMScripts\ServiceLocator.cs" />
     <Compile Include="Assets\DMScripts\TryingFadeOut.cs" />
     <Compile Include="Assets\DMScripts\YearButtonBehaviour.cs" />
     <Compile Include="Assets\Editor\SyncVisualStudioSolution.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="Assets\Problem8\LevelController\Scripts\TargetCollider.cs" />
     <Compile Include="Assets\Problem8\Pendulum\Scripts\Link.cs" />
     <Compile Include="Assets\Problem8\Pendulum\Scripts\Pendulum.cs" />
-    <Compile Include="Assets\Problem8\Pendulum\Scripts\Rotate.cs" />
     <Compile Include="Assets\Problem8\Pendulum\Scripts\Sphere.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
