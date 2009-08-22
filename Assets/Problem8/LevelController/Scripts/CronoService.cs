@@ -2,23 +2,21 @@
 
 public class CronoService : MonoBehaviour
 {
-    private static CronoService instance;
     public const float minutesToPlay = 0.5f;
     float timeRemaining = minutesToPlay * 60;
     float totalTime = 0.001f;
 
-    private ServiceLocator sl;
     void Start()
     {
-        sl = ServiceLocator.GetInstance();
+
     }
     void Update()
     {
-
-        MiniGamesGUI mg = sl.Get("MiniGamesGUI") as MiniGamesGUI;
-        PointsManagerBehaviour pmb = sl.Get("PointsManagerBehavoiur") as PointsManagerBehaviour;
+        MiniGamesGUI mg = Component.FindObjectOfType(System.Type.GetType("MiniGamesGUI")) as MiniGamesGUI;
+        
+        PointsManagerBehaviour pmb = Component.FindObjectOfType(System.Type.GetType("PointsManagerBehavoiur")) as PointsManagerBehaviour;
         GamesMapper mapper = new GamesMapper();
-
+        
         timeRemaining -= Time.deltaTime;
         mg.updateCronometer(timeRemaining);
 
@@ -44,14 +42,5 @@ public class CronoService : MonoBehaviour
 
             Application.LoadLevel("GameDescription");
         }
-    }
-
-    public static CronoService GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = Instantiate(Resources.Load("CronoService")) as CronoService;
-        }
-        return instance;
     }
 }

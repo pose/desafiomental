@@ -25,9 +25,12 @@ public class TargetCollider : MonoBehaviour
         {
             Destroy(other.gameObject);
             GameObject l = GameObject.Find("LevelController") as GameObject;
-            l.SendMessage("Complete", this.gameObject);
-            if (destroyOnCorrectHit)
-                Destroy(gameObject);
+            if (l != null)
+            {
+                l.SendMessage("Complete", this.gameObject);
+                if (destroyOnCorrectHit)
+                    Destroy(gameObject);
+            }
 
         }
 
