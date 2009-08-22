@@ -17,8 +17,11 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
-
         GameObject go = GameObject.Find("GameManager");
+        if ( go != null )
+            pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+
+        
  
         for (int i = 0; i < targets.Length; i++)
         {
@@ -42,6 +45,11 @@ public class LevelController : MonoBehaviour
         } // End if.
     }
 
+    void TimeIsUp()
+    {
+        this.onLastScene();
+    }
+
     void Complete(Object target)
     {
         GameObject g = (GameObject) target;
@@ -53,13 +61,8 @@ public class LevelController : MonoBehaviour
         if (mg != null)
         {
             mg.PartialWin();
-            mg.totalScore += (float)50;
         } // End if.
 
-        if (pmb != null)
-        {
-            pmb.incrementPoints(50);
-        } // End if.
 
         for (int i = 0; i < targets.Length; i++ )
         {
@@ -80,18 +83,20 @@ public class LevelController : MonoBehaviour
         GameObject go = GameObject.Find("GameManager");
         if (go != null)
         {
-            pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
+
             totalPoints = pmb.getPoints();
         }
 
-
-
-        mg.totalScore = totalPoints;
-
-        if (mg != null && pmb != null)
+        if (mg != null)
         {
-            pmb.incrementLevelsCompleted(1);
-        }
+            mg.PartialWin();
+            mg.levelScore += (float)50;
+        } // End if.
+
+        if (pmb != null)
+        {
+            pmb.incrementPoints(50);
+        } // End if.
 
 
         if (onWinLoad != null && !onWinLoad.Equals(""))
@@ -106,6 +111,13 @@ public class LevelController : MonoBehaviour
 
     private void onLastScene()
     {
+        Destroy(GameObject.Find("GameServices"));
+        if (pmb != null )
+            pmb.incrementLevelsCompleted(1);
+
+        if (mg != null)
+            Destroy(mg.gameObject);
+
         foreach ( Object c in Component.FindSceneObjectsOfType(System.Type.GetType("BackgroundBehaviour")) )
         {
             Destroy(c);
