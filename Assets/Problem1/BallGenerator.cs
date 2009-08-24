@@ -150,7 +150,7 @@ public class BallGenerator : MonoBehaviour
 			if(pmb != null)
 			{
 				print("PGM INCREMENTED");
-				pmb.incrementPoints(partialPoints);
+				pmb.incrementPoints("SumaCromatica",partialPoints);
 			} // End if.
 			
             Reset2();

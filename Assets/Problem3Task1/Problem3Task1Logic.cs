@@ -162,7 +162,7 @@ public class Problem3Task1Logic : MonoBehaviour
 				mg.setPartialWinLoseDisplayTime(2.0f);
 				mg.PartialWin();
 				
-				long lScore = (long)(15.0f - timeCounter);
+				long lScore = (long)(15.0f - (3.0f*timeCounter));
 				if(lScore < 0) lScore = 0;
 				
 				// Add the score.
