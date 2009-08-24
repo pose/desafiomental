@@ -177,7 +177,7 @@ public class Problem6Task1Logic : MonoBehaviour
 					
 					if(pmb != null)
 					{
-						pmb.incrementPoints(5);
+						pmb.incrementPoints("Balanza",5);
 					} // End if.
 				}
 				else

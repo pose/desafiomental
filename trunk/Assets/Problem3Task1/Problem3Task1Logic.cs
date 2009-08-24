@@ -175,7 +175,7 @@ public class Problem3Task1Logic : MonoBehaviour
 					
 				if(pmb != null)
 				{
-					pmb.incrementPoints(lScore);
+					pmb.incrementPoints("CapacidadDeRespuesta",lScore);
 				} // End if.
 				
 				gameOver = true;

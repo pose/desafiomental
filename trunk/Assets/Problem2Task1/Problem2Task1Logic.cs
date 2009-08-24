@@ -218,7 +218,7 @@ public class Problem2Task1Logic : MonoBehaviour
 					
 					if(pmb != null)
 					{
-						pmb.incrementPoints(5);
+						pmb.incrementPoints("IdentificacionCromatica",5);
 					} // End if.
                 }
 				else
