@@ -71,7 +71,7 @@ public class GamesMapper {
         scenesMap.Add(4, "Problem4Task1");
         scenesMap.Add(5, "Problem6Task1");
         scenesMap.Add(6, "Problem6Task1");
-        scenesMap.Add(7, "Problem1Task1");
+        scenesMap.Add(7, "Problem7Task1");
         scenesMap.Add(8, "Problem8Task1");
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Problem6Task1Logic : MonoBehaviour
+public class Problem7Task1Logic : MonoBehaviour
 {
 	const float TOTAL_TIME = 45.0f;	
 
@@ -32,9 +32,15 @@ public class Problem6Task1Logic : MonoBehaviour
 	PointsManagerBehaviour pmb = null;
 	MiniGamesGUI mg = null;
 
+    // Added for game 7
+
+    int count = 0;
+
     // Use this for initialization
     void Start()
     {
+        count = 0;
+
 		print("START!");
 
 		if(!backgroundMusic.isPlaying)
@@ -132,8 +138,8 @@ public class Problem6Task1Logic : MonoBehaviour
                 PointsManagerBehaviour pManager = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
                 if (pManager != null)
                 {
-                    pManager.setCurrentGame(mapper.getGameNumber("BalanzaAvanzada"));
-					//pManager.setCurrentGame(mapper.getGameNumber("CadenasEsferas"));
+                    //pManager.setCurrentGame(mapper.getGameNumber("BalanzaAvanzada"));
+					pManager.setCurrentGame(mapper.getGameNumber("CadenasEsferas"));
                 }
             }
             Application.LoadLevel("GameDescription");
@@ -147,7 +153,7 @@ public class Problem6Task1Logic : MonoBehaviour
         timeElapsed += Time.deltaTime;
 
         RaycastHit[] hits;
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             hits = Physics.RaycastAll(ray);
@@ -167,27 +173,47 @@ public class Problem6Task1Logic : MonoBehaviour
 				
 				bool advanceLevel = false;
 				GameObject hitCube = hits[index].transform.gameObject;
-				if(hitCube==frontCubes[0])
+                /*
+                print ( "Masa: " + hitCube.rigidbody.mass );
+                print("Count: " + count);
+                print("Length: " + frontCubes.Length);
+				
+                 */
+                if(hitCube==frontCubes[count])
 				{
-					print("HIT!");
+					print("HIT! Ok!");
 					mg.PartialWin();
-					mg.levelScore += 5.0f;
-					mg.totalScore += 5.0f;					
-					advanceLevel = true;
-					
-					if(pmb != null)
-					{
-						pmb.incrementPoints("Balanza",5);
-					} // End if.
+ 
+                    if (count == (frontCubes.Length - 1) )
+                    {
+                        print("gane el nivel");
+                        mg.levelScore += 5.0f;
+                        mg.totalScore += 5.0f;
+                        advanceLevel = true;
+                        count = 0;
+
+                        if (pmb != null)
+                        {
+                            pmb.incrementPoints("BalanzaAvanzada", 5);
+                        } // End if.
+                    }
+                    else
+                    {
+                        count++;
+                    }
+
+                    
 				}
 				else
 				{
+                    print("entro al error");
 					for(int i = 0; i < numFrontCubes; i++)
 					{
 						if(hitCube==frontCubes[i])
 						{
 							mg.PartialLose();
 							advanceLevel = true;
+                            count = 0;
 							break;
 						}
 					}					
@@ -239,6 +265,13 @@ public class Problem6Task1Logic : MonoBehaviour
 		
 		assignFrontCubesPositions3(frontCubes);		
 		
+        /* Debugging */
+        for (int i = 0; i < 3; i++)
+        {
+            print("Peso del frontCube " + i + ": " + frontCubes[i].rigidbody.mass);
+        }
+        /* End of debugging */
+
 		scales = new GameObject[3];
 		for(int i = 0; i < 3; i++)
 		{
