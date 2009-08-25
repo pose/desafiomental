@@ -95,7 +95,7 @@ public class LevelController : MonoBehaviour
 
         if (pmb != null)
         {
-            pmb.incrementPoints(50);
+            pmb.incrementPoints("CadenasEsferas",50);
         } // End if.
 
 
