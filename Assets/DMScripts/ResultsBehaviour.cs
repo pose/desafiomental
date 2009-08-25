@@ -9,7 +9,7 @@ public class ResultsBehaviour : MonoBehaviour{
 
     void Start()
     {
-        GameObject go = GameObject.Find("MentalCalculationPoints");
+        GameObject go = GameObject.Find("GameManager");
         if (go != null)
         {
             pmb = ((PointsManagerBehaviour)go.GetComponent("PointsManagerBehaviour"));
@@ -52,8 +52,8 @@ public class ResultsBehaviour : MonoBehaviour{
          * 0.3 * Puntaje(Balanza)/Maximo(Balanza) + 0.7 * Puntaje(Cadenas y esferas)/Maximo(Cadenas y esferas)
          */
 
-        result = 0.3 * pmb.getPoints("balanza") / pmb.getMaxPoints("balanza") 
-            + 0.7 * pmb.getPoints("esferas y cadenas") / pmb.getMaxPoints("esferas y cadenas");
+        result = 0.3 * pmb.getPoints("Balanza") / pmb.getMaxPoints("Balanza") 
+            + 0.7 * pmb.getPoints("CadenasEsferas") / pmb.getMaxPoints("CadenasEsferas");
 
         setLabel("ReasonCapacityPoints", ((int)(result * 100)).ToString());
 
@@ -67,8 +67,8 @@ public class ResultsBehaviour : MonoBehaviour{
          *      + 0.75 * Puntaje(Capacidad de respuesta AVANZADA)/Maximo(Capacidad de respuesta AVANZADA)
          */
 
-        result = 0.25 * pmb.getPoints("capacidad de respuesta") / pmb.getMaxPoints("capacidad de respuesta")
-            + 0.75 * pmb.getPoints("capacidad de respuesta avanzada") / pmb.getMaxPoints("capacidad de respuesta avanzada");
+        result = 0.25 * pmb.getPoints("CapacidadDeRespuesta") / pmb.getMaxPoints("CapacidadDeRespuesta")
+            + 0.75 * pmb.getPoints("CapacidadDeRespuestaAvanzada") / pmb.getMaxPoints("CapacidadDeRespuestaAvanzada");
 
         setLabel("ReactionCapacityPoints", ((int)(result * 100)).ToString());
 
@@ -82,9 +82,8 @@ public class ResultsBehaviour : MonoBehaviour{
          *    + 0.3 * Puntaje(Cuenta)/Maximo(Cuenta) + 0.3 * Puntaje(Balanza AVANZADA)/Maximo(Balanza AVANZADA)         
          */
 
-        result = 0.4 * pmb.getPoints("identificacion cromatica") / pmb.getMaxPoints("identificacion cromatica")
-            + 0.3 * pmb.getPoints("contar") / pmb.getMaxPoints("contar")
-                + 0.3 * pmb.getPoints("balanza avanzada") / pmb.getMaxPoints("balanza avanzada");
+        result = 0.4 * pmb.getPoints("IdentificacionCromatica") / pmb.getMaxPoints("IdentificacionCromatica")
+                    + 0.6 * pmb.getPoints("BalanzaAvanzada") / pmb.getMaxPoints("BalanzaAvanzada");
 
         setLabel("ConcentrationCapacityPoints", ((int)(result * 100)).ToString());
 
@@ -97,7 +96,7 @@ public class ResultsBehaviour : MonoBehaviour{
          * Puntaje(Suma cromática)
           */
 
-        result = 1.0 * pmb.getPoints("suma cromatica") / pmb.getMaxPoints("suma cromatica");
+        result = 1.0 * pmb.getPoints("SumaCromatica") / pmb.getMaxPoints("SumaCromatica");
 
         Debug.Log((result * 100));
 

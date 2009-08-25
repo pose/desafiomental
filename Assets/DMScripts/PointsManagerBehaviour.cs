@@ -11,23 +11,31 @@ public class PointsManagerBehaviour : MonoBehaviour {
     private int currentGame = 0;
 
 	// Use this for initialization
-	public PointsManagerBehaviour(){
+	/*
+     * public PointsManagerBehaviour(){
 		Start();
-	}
+	}*/
 	void Start () {
         DontDestroyOnLoad(this);
         gamePoints = new Dictionary<string, long>();
         gameMaxPoints = new Dictionary<string,long>();
         
-        gameMaxPoints.Add( "suma cromatica", 300 );
-        gameMaxPoints.Add( "balanza", 75 );
-        gameMaxPoints.Add( "balanza avanzada", 100 ); //Revisar y modificar de ser necesario.
-        gameMaxPoints.Add( "contar", 100 ); //Revisar y modificar de ser necesario.
-		gameMaxPoints.Add( "esferas y cadenas", 450 );
-        gameMaxPoints.Add( "identificacion cromatica", 75 );
-        gameMaxPoints.Add( "capacidad de respuesta", 45 );
-        gameMaxPoints.Add( "capacidad de respuesta avanzada", 45 );
+        gameMaxPoints.Add( "SumaCromatica", 100 );
+        gameMaxPoints.Add( "Balanza", 75 );
+        gameMaxPoints.Add( "BalanzaAvanzada", 65 );
+        gameMaxPoints.Add( "Cuenta", 100 ); //Deprecated :P
+        gameMaxPoints.Add( "CadenasEsferas", 450);
+        gameMaxPoints.Add( "IdentificacionCromatica", 75 );
+        gameMaxPoints.Add( "CapacidadDeRespuesta", 45 );
+        gameMaxPoints.Add( "CapacidadDeRespuestaAvanzada", 45);
 
+        setPoints("SumaCromatica", 0);
+        setPoints("Balanza", 0);
+        setPoints("BalanzaAvanzada", 0);
+        setPoints("CadenasEsferas", 0);
+        setPoints("IdentificacionCromatica", 0);
+        setPoints("CapacidadDeRespuesta", 0);
+        setPoints("CapacidadDeRespuestaAvanzada", 0);
 
         points = 0;
 	}
@@ -66,20 +74,26 @@ public class PointsManagerBehaviour : MonoBehaviour {
 
     public long setPoints(string game, long points)
     {
-        this.points = points;
-        GameObject go = GameObject.Find("MiniGamesGUI");
+        long totalDiference = 0;
+        
         try
         {
-            // Si ya estaba agregado el juego
+            // Si no estaba agregado el juego, lo agrego. Si
+            // estaba agregado le actualizo los puntos y actualizo el total 
+            // para que se incremente o decremente en la diferencia.
+
             if (!gamePoints.ContainsKey(game))
             {
                 gamePoints.Add(game, points);
+                totalDiference = points;
             }
             else
             {
+                totalDiference = points - gamePoints[game];
                 gamePoints[game] = points;
             }
-            
+
+            setPoints(this.points + totalDiference);
             
         }
         catch (KeyNotFoundException)
@@ -87,13 +101,6 @@ public class PointsManagerBehaviour : MonoBehaviour {
             Debug.Log("No se encontró el juego correspondiente a " + game);
         }
         
-        if (go != null)
-        {
-            MiniGamesGUI mgGUI = ((MiniGamesGUI)go.GetComponent("MiniGamesGUI"));
-            if (mgGUI != null)
-                mgGUI.totalScore += points;
-        }
-
         return getPoints(game);
     }
 
@@ -117,7 +124,7 @@ public class PointsManagerBehaviour : MonoBehaviour {
 
     public long incrementPoints(string game, long inc)
     {
-        setPoints(game, getPoints() + inc);
+        setPoints(game, getPoints(game) + inc);
         return getPoints(game);
     }
 
