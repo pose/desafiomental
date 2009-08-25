@@ -4,19 +4,43 @@ using System.Collections.Generic;
 
 public class PointsManagerBehaviour : MonoBehaviour {
 
-	long points = 0;
-    int levelsCompleted = 0;
-    Dictionary<string, long> gamePoints = null;
-    int currentGame = 0;
+	private long points = 0;
+    private int levelsCompleted = 0;
+    private Dictionary<string, long> gamePoints = null;
+    private Dictionary<string, long> gameMaxPoints = null;
+    private int currentGame = 0;
 
 	// Use this for initialization
-
+	public PointsManagerBehaviour(){
+		Start();
+	}
 	void Start () {
         DontDestroyOnLoad(this);
         gamePoints = new Dictionary<string, long>();
-		points = 0;
+        gameMaxPoints = new Dictionary<string,long>();
+        
+        gameMaxPoints.Add( "suma cromatica", 300 );
+        gameMaxPoints.Add( "balanza", 75 );
+        gameMaxPoints.Add( "balanza avanzada", 100 ); //Revisar y modificar de ser necesario.
+        gameMaxPoints.Add( "contar", 100 ); //Revisar y modificar de ser necesario.
+		gameMaxPoints.Add( "esferas y cadenas", 450 );
+        gameMaxPoints.Add( "identificacion cromatica", 75 );
+        gameMaxPoints.Add( "capacidad de respuesta", 45 );
+        gameMaxPoints.Add( "capacidad de respuesta avanzada", 45 );
+
+
+        points = 0;
 	}
+
+    public string getAllGames()
+    {
+        return gamePoints.Keys.ToString();
+    }
 	
+    public long getMaxPoints( string game ){
+        return gameMaxPoints[game];
+    }
+
     public void setCurrentGame( int gNumber ){
 
         this.currentGame = gNumber;
@@ -46,7 +70,17 @@ public class PointsManagerBehaviour : MonoBehaviour {
         GameObject go = GameObject.Find("MiniGamesGUI");
         try
         {
-            gamePoints.Add(game, points);
+            // Si ya estaba agregado el juego
+            if (!gamePoints.ContainsKey(game))
+            {
+                gamePoints.Add(game, points);
+            }
+            else
+            {
+                gamePoints[game] = points;
+            }
+            
+            
         }
         catch (KeyNotFoundException)
         {

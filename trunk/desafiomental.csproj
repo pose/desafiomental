@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Editor\Data\lib\UnityEngine-Debug.dll</HintPath>
     </Reference>
@@ -42,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\DMScripts\AudioBehaviour.cs" />
+    <Compile Include="Assets\DMScripts\ResultsBehaviour.cs" />
     <Compile Include="Assets\DMScripts\ContinueButtonBehaviour.cs" />
     <Compile Include="Assets\DMScripts\FactBehaviour.cs" />
     <Compile Include="Assets\DMScripts\FadeInEffectBehaviour.cs" />
@@ -52,6 +55,7 @@
     <Compile Include="Assets\DMScripts\MainBehaviour.cs" />
     <Compile Include="Assets\DMScripts\MainScreenBehaviour.cs" />
     <Compile Include="Assets\DMScripts\PointsManagerBehaviour.cs" />
+    <Compile Include="Assets\DMScripts\ServiceLocator.cs" />
     <Compile Include="Assets\DMScripts\TryingFadeOut.cs" />
     <Compile Include="Assets\DMScripts\YearButtonBehaviour.cs" />
     <Compile Include="Assets\Editor\SyncVisualStudioSolution.cs" />
@@ -62,12 +66,14 @@
     <Compile Include="Assets\Problem2Task1\Prefabs\ScriptCube.cs" />
     <Compile Include="Assets\Problem3Task1\Problem3Task1Logic.cs" />
     <Compile Include="Assets\Problem4Task1\Problem4Task1Logic.cs" />
+    <Compile Include="Assets\Problem6Task1\Problem6Task1Logic.cs" />
     <Compile Include="Assets\Problem8\LevelController\Scripts\BackgroundBehaviour.cs" />
     <Compile Include="Assets\Problem8\LevelController\Scripts\CronoService.cs" />
     <Compile Include="Assets\Problem8\LevelController\Scripts\LevelController.cs" />
     <Compile Include="Assets\Problem8\LevelController\Scripts\TargetCollider.cs" />
     <Compile Include="Assets\Problem8\Pendulum\Scripts\Link.cs" />
     <Compile Include="Assets\Problem8\Pendulum\Scripts\Pendulum.cs" />
+    <Compile Include="Assets\Problem8\Pendulum\Scripts\RotatingBox.cs" />
     <Compile Include="Assets\Problem8\Pendulum\Scripts\Sphere.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
