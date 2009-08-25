@@ -136,8 +136,7 @@ public class BallGenerator : MonoBehaviour
         if (val  == totalSum)
         {
             Debug.Log("Win!");
-			int partialPoints = (int) (150 / totalTime);
-            Debug.Log(partialPoints);
+			int partialPoints = 5;
 			
 			if(mg != null)
 			{
